@@ -28,7 +28,7 @@ Three facts that shape the whole response:
   not now, or no longer carries its disclosure. This pages, because it is both a
   non-delivery and a live disclosure defect on something we paid for.
 - `sku_predicate_misconfigured`: a funded `kol_post` SKU is missing the T+24h or
-  T+7d offset. Delivery is unverifiable, so payment is withheld and paid media
+  T+7d offset. Delivery is unverifiable, so payment is withheld and paid promotion
   should stop until the catalog is fixed.
 - `procurement_receipt_missing`: a check PASSED but the procurement receipt the
   tick should have written for that disbursement does not exist, so nothing
@@ -66,7 +66,7 @@ psql "$DATABASE_URL" -c "SELECT d.id, d.vendor_id, d.sku_id, d.cost_usd, p.offse
    window.** Most vendor terms have a short claim period; a dispute filed late is
    a dispute lost, and the loss lands on the operator.
 
-5. **For a deleted or undisclosed KOL post, capture what remains** - the archived
+5. **For a deleted or undisclosed sponsored post, capture what remains** - the archived
    copy, the T+24h evidence hash, the timestamps. That evidence is what makes the
    receipt honest later.
 

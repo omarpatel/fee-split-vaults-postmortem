@@ -21,7 +21,7 @@ An alert with no next step is a page that gets ignored.
 | [paused-quote-asset.md](paused-quote-asset.md) | `quote_asset_proxy_paused` | disable the asset |
 | [stranded-escrow-balance.md](stranded-escrow-balance.md) | `vault_recipient_transferred`, `venue_recipient_change_timelock_firing`, `escrow_sweep_stalled`, `sweep_shortfall` | freeze new authorizations |
 | [ledger-variance-critical.md](ledger-variance-critical.md) | `ledger_variance_critical`, `settlement_stalled`, `dead_letter_backlog`, `scheduler_tick_stalled` | freeze new authorizations |
-| [client-rug-post-activation.md](client-rug-post-activation.md) | `screening_blocked_after_metadata_change`, `screening_restricted_after_metadata_change` | suspend the vault / halt paid media |
+| [client-rug-post-activation.md](client-rug-post-activation.md) | `screening_blocked_after_metadata_change`, `screening_restricted_after_metadata_change` | suspend the vault / halt paid promotion |
 | [prompt-injection-incident.md](prompt-injection-incident.md) | `injection_detector_trip`, `spend_gate_denials_spiking`, `disclosure_readback_failure` | halt publishing |
 | [x-account-suspension.md](x-account-suspension.md) | `publishing_channel_suspended` | halt publishing |
 | [vendor-non-delivery-dispute.md](vendor-non-delivery-dispute.md) | `delivery_predicate_failed`, `kol_post_deleted_or_undisclosed`, `sku_predicate_misconfigured`, `procurement_receipt_missing` | withhold payment |

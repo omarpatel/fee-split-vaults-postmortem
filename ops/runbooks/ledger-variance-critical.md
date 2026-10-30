@@ -61,7 +61,7 @@ psql "$DATABASE_URL" -c "SELECT id, vault, asset, severity, delta_minor, detecte
   convention mismatch is explained. Record the explanation on the variance row,
   post the correcting entry, then clear the freeze naming yourself.
 - **Is it unexplained and larger than one client's daily fees?** Escalate to a
-  fleet freeze rather than a per-vault one, and stop all paid media across the
+  fleet freeze rather than a per-vault one, and stop all paid promotion across the
   book. A systematic accounting error is not a per-coin problem.
 - **Did the clean room disagree while the trial balance agreed?** That is the
   worst signature: the primary path and its own recompute share a bug. Suspect

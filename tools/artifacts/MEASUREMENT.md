@@ -295,7 +295,7 @@ credits a day out of ~100,000.
   confirms symbol and decimals. USDG at $1.00 is an **assumption**, defensible
   only because it establishes a *lower bound*.
 - The rest of the tail is **tokenized equities and ETFs** — NVDA, SPCX, SPY, DJT,
-  GME, QQQ, GLD, RDDT, TSLA, AAPL, cbBTC — plus a memecoin tail. These are left
+  GME, QQQ, GLD, RDDT, TSLA, AAPL, cbBTC — plus a long tail of launched tokens. These are left
   **UNPRICED on purpose**: this repo has no verified quote feed for them, and
   inventing one would convert an honest refusal into a confident wrong total.
 - Prices pin to **addresses, never symbols**. The live asset set contains
@@ -458,7 +458,7 @@ unpriced asset supports:
 | `0xcec185…0be4` | cbBTC | 8 | 1,134 | 15,667 |
 
 These are **publicly quoted instruments**. The "long tail of unpriceable
-memecoins" framing is wrong: the head of what remains unpriced is tokenized
+launched tokens" framing is wrong: the head of what remains unpriced is tokenized
 equities and ETFs, and an operator with an equity feed could price it in an
 afternoon. That is the single highest-value next step.
 

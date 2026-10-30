@@ -251,8 +251,8 @@ that gets ignored.
 | `quote_asset_proxy_paused` | page | disable quote asset | an approved quote-asset proxy is paused | [paused-quote-asset](../ops/runbooks/paused-quote-asset.md) |
 | `disclosure_readback_failure` | page | halt publishing | **any** post fails its disclosure read-back in the last hour | [prompt-injection-incident](../ops/runbooks/prompt-injection-incident.md) |
 | `publishing_channel_suspended` | page | halt publishing | a publishing account is suspended | [x-account-suspension](../ops/runbooks/x-account-suspension.md) |
-| `kol_post_deleted_or_undisclosed` | page | none | a paid KOL post is gone or lost its disclosure at T+7d | [vendor-non-delivery-dispute](../ops/runbooks/vendor-non-delivery-dispute.md) |
-| `sku_predicate_misconfigured` | page | halt paid media | a funded KOL SKU is missing a mandatory verification offset | [vendor-non-delivery-dispute](../ops/runbooks/vendor-non-delivery-dispute.md) |
+| `kol_post_deleted_or_undisclosed` | page | none | a paid sponsored post is gone or lost its disclosure at T+7d | [vendor-non-delivery-dispute](../ops/runbooks/vendor-non-delivery-dispute.md) |
+| `sku_predicate_misconfigured` | page | halt paid promotion | a funded sponsored-post SKU is missing a mandatory verification offset | [vendor-non-delivery-dispute](../ops/runbooks/vendor-non-delivery-dispute.md) |
 | `screening_blocked_after_metadata_change` | page | suspend vault | a live client changed metadata into a BLOCKED verdict | [client-rug-post-activation](../ops/runbooks/client-rug-post-activation.md) |
 | `escrow_sweep_stalled` | page | none | no successful sweep for a scope in **26h** | [stranded-escrow-balance](../ops/runbooks/stranded-escrow-balance.md) |
 | `scheduler_tick_stalled` | page | none | no scheduler tick for **10 minutes** | [ledger-variance-critical](../ops/runbooks/ledger-variance-critical.md) |
@@ -261,7 +261,7 @@ that gets ignored.
 | `tier_gate_crossed_downward` | ticket | none | a coin dropped below its tier gate | [tier-downgrade](../ops/runbooks/tier-downgrade.md) |
 | `inference_cost_over_tier_cogs` | ticket | throttle model | a coin's inference cost exceeds its tier's COGS, sustained 1h | [tier-downgrade](../ops/runbooks/tier-downgrade.md) |
 | `delivery_predicate_failed` | ticket | none | a funded SKU failed its delivery predicate | [vendor-non-delivery-dispute](../ops/runbooks/vendor-non-delivery-dispute.md) |
-| `screening_restricted_after_metadata_change` | ticket | halt paid media | a live client changed metadata into a RESTRICTED verdict | [client-rug-post-activation](../ops/runbooks/client-rug-post-activation.md) |
+| `screening_restricted_after_metadata_change` | ticket | halt paid promotion | a live client changed metadata into a RESTRICTED verdict | [client-rug-post-activation](../ops/runbooks/client-rug-post-activation.md) |
 | `sweep_shortfall` | ticket | none | a claim landed >5bps short of the credited amount | [stranded-escrow-balance](../ops/runbooks/stranded-escrow-balance.md) |
 | `settlement_stalled` | ticket | none | oldest unsettled balance older than **24h** (4× the settle interval) | [ledger-variance-critical](../ops/runbooks/ledger-variance-critical.md) |
 | `gas_subsidy_expiry_approaching` | ticket → **page** inside 7 days | none | subsidy expiry within 30 days | [paused-quote-asset](../ops/runbooks/paused-quote-asset.md) |
@@ -312,7 +312,7 @@ Written for the person who has just been woken up.
 | [client-rug-post-activation.md](../ops/runbooks/client-rug-post-activation.md) | a live client's metadata turns BLOCKED or RESTRICTED |
 | [prompt-injection-incident.md](../ops/runbooks/prompt-injection-incident.md) | detector spike, spend-gate denial spike, disclosure read-back failure |
 | [x-account-suspension.md](../ops/runbooks/x-account-suspension.md) | a publishing channel is suspended |
-| [vendor-non-delivery-dispute.md](../ops/runbooks/vendor-non-delivery-dispute.md) | predicate failure, deleted or undisclosed KOL post, misconfigured SKU |
+| [vendor-non-delivery-dispute.md](../ops/runbooks/vendor-non-delivery-dispute.md) | predicate failure, deleted or undisclosed sponsored post, misconfigured SKU |
 | [tier-downgrade.md](../ops/runbooks/tier-downgrade.md) | a coin dropped below its gate; inference cost over tier COGS |
 
 ### Getting oriented
@@ -563,7 +563,7 @@ schema is closed — and re-scrubs every gist on the boundary because the reader
 is a model and models are not a trust boundary.
 
 Every future request to widen it will sound reasonable on its own: *let holders
-suggest a KOL by handle*, *let the agent read the dev's DMs*, *let the community
+suggest a sponsor account by handle*, *let the agent read the dev's DMs*, *let the community
 submit a link for the site*. Each is a request to punch a hole in the airlock.
 
 **Any change to `Digest`, `TOPIC_CODES`, `SIGNAL_CODES`, `READER_TOOLS` or
@@ -622,9 +622,9 @@ Honest inventory of what does not exist yet, so nobody discovers it at 3am.
 | `apps/api/dist/main.js` | needs `tsc --build`; the API image healthcheck also expects `/healthz` |
 | `DISCLOSURE.operatorName` unset | nothing can publish |
 | `TERMS.operatorBps` is now **500** and `TIERS.T1.gateQfPerDay` **$1,000/day** | priced by `tools/reprice.ts` against measured Phase 0 data, not chosen; the two move together and neither clears alone. Both are in the CREATE2 salt preimage or gate real spend, so re-run the tool before touching either |
-| The human-ops share of T1 COGS is unmeasured | $10 of T1's $13/day is a staffed desk that the Section 9 pilot has not yet tested; if it shows no lift, COGS falls to about $3 and a lower gate becomes viable, and if it does, the gate must stay. Do not move the gate on optimism before that result |
+| The human-ops share of T1 COGS is unmeasured | $10 of T1's $13/day is staffed chat support that the Section 9 pilot has not yet tested; if it shows no lift, COGS falls to about $3 and a lower gate becomes viable, and if it does, the gate must stay. Do not move the gate on optimism before that result |
 | OFAC SDN cache is a non-authoritative placeholder | screening cannot issue CLEAR for anybody until `fetch-ofac` has run — fails closed on every coin, which will look like a screening bug |
-| Screening slur lexicon and drainer feed ship `unconfigured` | no paid media, structural-only link policy |
-| Only Dexscreener SKUs are enabled in the catalog | DEXTools and the three KOL roster slots ship disabled pending countersigned quotes and KYB/OFAC records |
+| Screening slur lexicon and drainer feed ship `unconfigured` | no paid promotion, structural-only link policy |
+| Only Dexscreener SKUs are enabled in the catalog | DEXTools and the three sponsored-post roster slots ship disabled pending countersigned quotes and KYB/OFAC records |
 | No concurrent-scheduler integration test against real Postgres | the "exactly one wins" property currently rests on reading the SQL |
 | Sweep thresholds measured under the gas subsidy | must be re-derived from a live gas quote before ~29 Sep 2026 — see [OCTOBER-RERUN.md](../tools/artifacts/OCTOBER-RERUN.md) |

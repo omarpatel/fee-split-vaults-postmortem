@@ -325,7 +325,7 @@ causal.**
 
 ### The decode control that could have failed, and did not
 
-`hook.launches(poolId)[2]` (memecoin) equals the independently-joined coin for
+`hook.launches(poolId)[2]` (launched token) equals the independently-joined coin for
 **125 of 125**. `launches()[4]` (creator-fee recipient) equals the independently
 measured 7-day dominant creator-leg recipient for **115 of 125 (92.0%)**; all 10
 disagreements are recipients that **changed after the window** (8 of the 10 are

@@ -92,7 +92,7 @@ cold-start purchase freeze, and six-hour hysteresis.
 
 ## 2. The hold-up problem
 
-**The threat.** The operator signs a $50,000 KOL campaign for a client whose
+**The threat.** The operator signs a $50,000 sponsored-post campaign for a client whose
 coin is producing $2,000/week. Two weeks in, the client's volume collapses and
 the budget cannot cover the commitment. Now the operator is exposed and the
 client's leverage is enormous: *"eat the loss or I terminate and you get
@@ -259,7 +259,7 @@ refuses to construct unless the operator vendor is flagged `isRelatedParty`.
 rejected as self-dealing.** That is the exact shape of "a service that is really
 a resold good".
 
-**PROCEDURAL — delivery predicates.** No predicate, no purchase. KOL posts are
+**PROCEDURAL — delivery predicates.** No predicate, no purchase. Sponsored posts are
 checked at T+24h *and* T+7d. Evidence sources return `null` on failure and null
 is treated as **not delivered**.
 

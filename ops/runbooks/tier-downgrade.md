@@ -43,7 +43,7 @@ psql "$DATABASE_URL" -c "SELECT vault, day_key, qf_per_day_usd, below_gate FROM 
    the refusal classes apply to client communication too.
 
 3. **Settle the procurement budget honestly.** Unspent budget stays the coin's.
-   If the new tier does not permit paid media, the budget stops being spent and
+   If the new tier does not permit paid promotion, the budget stops being spent and
    is refundable; it is not quietly retained against a future upgrade.
 
 4. **Check the qualification floor.** Below roughly $1,500/month of implied

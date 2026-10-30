@@ -198,7 +198,7 @@ SKU from a list a human curated.
 
 Absence is the control at three depths, and only the first usually fires:
 
-1. With paid media not permitted, `propose_purchase` **is not offered** — the
+1. With paid promotion not permitted, `propose_purchase` **is not offered** — the
    model has no way to express a purchase.
 2. If it were offered, `parseProposals` rejects a SKU outside the catalog enum.
 3. If it parsed, the tick loop filters purchases under a divergence freeze.
@@ -268,7 +268,7 @@ sequenceDiagram
 
 Every phase either produces its output or records a refusal with a machine code.
 A phase that refused **does not hand a default downstream**: no QF means no tier
-change, no screening means no paid media, no price means no spend, a halt means
+change, no screening means no paid promotion, no price means no spend, a halt means
 no spend at all.
 
 ### Two clocks, both fixed

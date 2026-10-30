@@ -8,9 +8,9 @@ transaction and receipt. One mapping holds on all 175 without a counter-example:
 | slot | name | evidence |
 | --- | --- | --- |
 | topic1 (`address indexed`) | `sender` | msg.sender of the curve call: equals `tx.from` on direct calls (53 buys, 33 sells) and equals `tx.to` when a router / wallet contract made the call (57 buys, 24 sells) |
-| topic2 (`address indexed`) | `trader` | the memecoin `Transfer` in the same receipt goes curve → topic2 for exactly word1 on **117/117** buys and topic2 → curve for exactly word0 on **58/58** sells |
-| word0 | `amountIn` | buy: gross quote paid. `tx.value == word0` on **53/53** direct native buys; `tx.value − word0 == 0.0005 ETH` (the launch fee) on **20/20** launch-transaction buys; an ERC-20 quote `Transfer` of exactly word0 into the curve on **12/12** ERC-20-quote buys. sell: memecoin sold (the 58/58 Transfer above) |
-| word1 | `amountOut` | buy: memecoin received (117/117 above). sell: NET quote paid to the trader: `balance(block) − balance(block−1) == word1 − gasUsed·effectiveGasPrice` on **32/32** direct native sells; ERC-20 quote `Transfer` curve → trader of exactly word1 on **9/9** ERC-20 sells |
+| topic2 (`address indexed`) | `trader` | the launched token `Transfer` in the same receipt goes curve → topic2 for exactly word1 on **117/117** buys and topic2 → curve for exactly word0 on **58/58** sells |
+| word0 | `amountIn` | buy: gross quote paid. `tx.value == word0` on **53/53** direct native buys; `tx.value − word0 == 0.0005 ETH` (the launch fee) on **20/20** launch-transaction buys; an ERC-20 quote `Transfer` of exactly word0 into the curve on **12/12** ERC-20-quote buys. sell: launched token sold (the 58/58 Transfer above) |
+| word1 | `amountOut` | buy: launched token received (117/117 above). sell: NET quote paid to the trader: `balance(block) − balance(block−1) == word1 − gasUsed·effectiveGasPrice` on **32/32** direct native sells; ERC-20 quote `Transfer` curve → trader of exactly word1 on **9/9** ERC-20 sells |
 | word2 | `fee` | `== gross × 100 / 10 000` on **58/58** sells and **99/117** buys; the other 18 buys are all within 17 blocks of launch and carry 7.18 % or 1.19 % (anti-snipe surcharge, see below). Never below 1.00 % |
 | word3 | `creatorTax` | `== gross × creatorTaxBps / 10 000` on **175/175**, with `creatorTaxBps` read from `factory.getLaunchedToken(token)` word 8. Sample spans 0, 100, 150, 200, 300, 330, 500, 1000 bps |
 
@@ -70,7 +70,7 @@ credit trace.
   transfers fix it exactly.
 - **28 buys and 25 sells with `trader ≠ tx.from`.** `topic1` is then a
   contract other than the signer (the one the EOA called, `tx.to`, on 46 of the
-  53; one call deeper on 7) and the memecoin still moves to / from `topic2`, so
+  53; one call deeper on 7) and the launched token still moves to / from `topic2`, so
   `trader` is the beneficiary rather than the transaction signer. Attribution
   reports `trader` as the counterparty for that reason.
 - **Fee and creator tax on ERC-20 sells are not transferred out** in the same
@@ -137,7 +137,7 @@ Worked examples from the fixture (all amounts in wei / token base units):
 
 - Direct native buy, curve `0xfef1be22…` (tax 100), tx `0xb1759886…`, block
   64,171,001: `tx.from = sender = trader = 0x0f03e95e…`, `tx.value =
-  351,751,066,677,435 = amountIn`; memecoin Transfer curve → trader
+  351,751,066,677,435 = amountIn`; launched-token Transfer curve → trader
   `205,146,028,700,092,559,728,665 = amountOut`; `fee = 3,517,510,666,774 =
   amountIn / 100`; `creatorTax = 3,517,510,666,774 = amountIn × 100 / 10 000`.
 - Launch-transaction buy, curve `0x65b5c277…` (tax 200), tx `0x043d3e63…`:
@@ -145,7 +145,7 @@ Worked examples from the fixture (all amounts in wei / token base units):
   0x7023c910…`, `tx.value − amountIn = 26,152,624,188,800,000 −
   25,652,624,188,800,000 = 500,000,000,000,000`; `fee = amountIn / 100`,
   `creatorTax = amountIn × 2 / 100 = 513,052,483,776,000`.
-- Direct native sell, same curve, tx `0xaa3891c4…`, block 64,170,435: memecoin
+- Direct native sell, same curve, tx `0xaa3891c4…`, block 64,170,435: launched token
   Transfer trader → curve `14,595,162,717,672,786,006,026,528 = amountIn`;
   `amountOut = 24,169,476,476,564,834`, `fee = 249,169,860,583,142`,
   `creatorTax = 498,339,721,166,285`; gross `= 24,916,986,058,314,261`, of
@@ -162,7 +162,7 @@ Worked examples from the fixture (all amounts in wei / token base units):
 
 ## What would invalidate the pin
 
-- A `CurveBuy` / `CurveSell` log whose memecoin `Transfer` does not match
+- A `CurveBuy` / `CurveSell` log whose launched-token `Transfer` does not match
   topic2 / word1 (buy) or topic2 / word0 (sell).
 - A sell whose `word2 ≠ ⌊(word1 + word2 + word3) / 100⌋`, or any log whose
   `word3 ≠ ⌊gross × creatorTaxBps / 10 000⌋` for the token's current

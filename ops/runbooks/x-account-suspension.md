@@ -87,8 +87,8 @@ psql "$DATABASE_URL" -c "DELETE FROM ops_job_run WHERE job_id = 'publishing.heal
 - **Do we still charge the operator fee?** For a coin whose paid service is
   offline, no. Suspend the fee for the affected period and say so in the report
   before the client asks.
-- **Is the affected account also the read-back path for live paid media?** If so,
-  the T+24h and T+7d KOL checks may fail for a reason that is not the vendor's
+- **Is the affected account also the read-back path for live paid promotion?** If so,
+  the T+24h and T+7d sponsored-post checks may fail for a reason that is not the vendor's
   fault. Do not withhold vendor payment on evidence you could not gather -
   record the check as unverifiable and re-run it once access returns.
 - **Has this happened more than once?** Two suspensions is a product finding: the
@@ -107,7 +107,7 @@ psql "$DATABASE_URL" -c "SELECT external_id, is_promotional, disclosure_tags, pu
 # 3. Confirm the one-ticker-per-account invariant held, which is the appeal's core claim.
 psql "$DATABASE_URL" -c "SELECT channel, count(DISTINCT vault) AS tickers FROM publication WHERE channel = 'x_operator' GROUP BY 1;"
 
-# 4. Live paid media whose verification depends on this account.
+# 4. Live paid promotion whose verification depends on this account.
 psql "$DATABASE_URL" -c "SELECT d.id, d.vendor_id, d.sku_id, p.offset_seconds, p.due_at_unix FROM disbursement d JOIN predicate_check p ON p.disbursement_id = d.id WHERE p.checked_at_unix IS NULL ORDER BY p.due_at_unix;"
 
 # 5. Nothing pauses the channel by hand: the publisher already refuses the account

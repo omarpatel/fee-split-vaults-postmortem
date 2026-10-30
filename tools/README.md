@@ -224,7 +224,7 @@ scanning.
 
 The tail is not what it looked like. It is **tokenized equities and ETFs** —
 NVDA, TSLA, SPY, QQQ, GLD, AAPL, MSFT, "… • Robinhood Token" — plus the USDG
-stablecoin (6dp) and cbBTC (8dp), with a genuine memecoin tail underneath in
+stablecoin (6dp) and cbBTC (8dp), with a genuine long tail of launched tokens underneath in
 which symbols collide and impersonate (VLAD ×6, TRUMP ×5). **Prices are pinned
 to addresses, never to symbols**, for exactly that reason.
 
@@ -531,7 +531,7 @@ hook and the factory are verified on chain 4663). The results are pinned in
 |---|---|
 | `Credited` / `CreditedToken` on the escrow | **confirmed** |
 | `PoolFeesSwept(bytes32 indexed, uint256, uint256, uint256, uint256)` | **confirmed** — the guess had the right shape, so it decoded correctly by luck |
-| `PoolRegistered(bytes32 indexed poolId, address memecoin, address quoteToken, address creator)` | **found** — this, not `TokenLaunched`, is the poolId → coin binding |
+| `PoolRegistered(bytes32 indexed poolId, address launched token, address quoteToken, address creator)` | **found** — this, not `TokenLaunched`, is the poolId → coin binding |
 | `TokenLaunched(address indexed token, bytes32 indexed poolId, address indexed creator)` | **REFUTED** — does not exist |
 | `CurveBuy` | **REFUTED** — does not exist |
 

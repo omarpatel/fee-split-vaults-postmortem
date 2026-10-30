@@ -90,7 +90,7 @@ psql "$DATABASE_URL" -c "SELECT vault, channel, external_id, read_back_verified,
 - **Does the Digest schema need to change?** Almost certainly not, and any change
   to `DigestSchema` or to the reader's tool list is a **security review, not a
   product review**. Every request to widen it sounds reasonable in isolation:
-  "let holders suggest a KOL by handle", "let the agent read the dev's DMs". Each
+  "let holders suggest a sponsor account by handle", "let the agent read the dev's DMs". Each
   one is a hole.
 - **Should the model plane be paused fleet-wide?** Only if you have evidence the
   structure failed. Pausing on telemetry alone trains everyone to ignore it.

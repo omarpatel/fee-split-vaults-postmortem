@@ -527,7 +527,7 @@ business and not one of them is closed by any command in this document:**
   `reachable: false`. **That is a business decision about the threshold, owed
   before the trial runs against a real coin, and no enrolment number fixes it.**
 - **(b) No written Anthropic usage-policy determination exists** for operating a
-  disclosed AI desk in a public memecoin community under the Finance High-Risk
+  disclosed AI chat assistant in a public token community under the Finance High-Risk
   clause. The output classifier is this repository's own reading of a policy, not
   a counterparty's agreement that the reading is right.
 - **(c) No insurance has been placed and none has been quoted.** Whether an

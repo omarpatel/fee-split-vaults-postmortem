@@ -37,7 +37,7 @@ psql "$DATABASE_URL" -c "SELECT verdict, paid_media_permitted, screened_at_unix,
 ## Immediate actions
 
 1. **Stop emitting.** The vault suspension halts publishing for that coin
-   automatically on BLOCKED; on RESTRICTED only paid media stops. Confirm which
+   automatically on BLOCKED; on RESTRICTED only paid promotion stops. Confirm which
    happened, and if the situation is worse than the verdict, suspend by hand.
 
 2. **Stop spending.** No new authorizations, and cancel anything scheduled that
@@ -65,7 +65,7 @@ psql "$DATABASE_URL" -c "SELECT verdict, paid_media_permitted, screened_at_unix,
 
 - **BLOCKED versus RESTRICTED.** BLOCKED suspends the vault: no publishing, no
   spend, terminate. RESTRICTED allows organic operations - answering factual
-  questions at the desk - but no paid media. The middle option exists because
+  questions at the desk - but no paid promotion. The middle option exists because
   cutting a coin's support desk hurts its holders, not its deployer.
 - **Is the verdict sticky?** Yes. A re-screen NEVER un-blocks. If the dev reverts
   the metadata, the enforcement stays until a named human records an override in
@@ -78,7 +78,7 @@ psql "$DATABASE_URL" -c "SELECT verdict, paid_media_permitted, screened_at_unix,
 - **Do we owe the holders anything?** No, and saying otherwise creates a
   liability we cannot meet. What we owe them is the truth about what we did, what
   we were paid, and that we hold none of the token.
-- **Was any paid media still live?** KOL posts continue to exist after we stop
+- **Was any paid promotion still live?** Sponsored posts continue to exist after we stop
   paying for them. Ask the vendor to remove them; if they will not, record that
   in the notice. The T+7d re-check will show it either way.
 - **Terminate or suspend?** Suspend first - it is reversible and preserves the
