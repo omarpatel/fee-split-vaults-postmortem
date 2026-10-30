@@ -113,8 +113,10 @@ jobs:
       - name: ops
         run: npx vitest run --root ops
       # tools/ is not an npm workspace the root glob reaches, so its suite runs
-      # explicitly. Its deployment-derivation tests read contracts/out/, which
-      # is gitignored, so the contracts are built first.
+      # explicitly. Its tests import the built workspace packages and read
+      # contracts/out/, both gitignored, so both are built first.
+      - name: build packages
+        run: npm run build
       - uses: foundry-rs/foundry-toolchain@v1
         with:
           version: stable
