@@ -1,0 +1,28 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    // COMPILES IN PLACE, deliberately, exactly as config/ does and for the same
+    // reason. Everything under ops/ reaches config/protocol.ts through
+    // ops/lib/protocol.ts, and that relative specifier has to resolve
+    // identically from the TypeScript source (which vitest runs) and from the
+    // emitted JavaScript (which the containers run). An outDir would put the
+    // output one directory deeper than its source, so '../../config/protocol.js'
+    // would mean two different files. Emitting beside the source keeps them the
+    // same file. ops/.gitignore keeps the output out of git.
+    "rootDir": ".",
+    "tsBuildInfoFile": ".tsbuildinfo"
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["**/__tests__/**", "**/*.d.ts"],
+  "references": [
+    { "path": "../packages/core" },
+    { "path": "../packages/broker" },
+    { "path": "../packages/orchestrator" },
+    { "path": "../packages/adapters" },
+    { "path": "../packages/ledger" },
+    { "path": "../packages/indexer" },
+    { "path": "../packages/screening" },
+    { "path": "../packages/publisher" },
+    { "path": "../config" }
+  ]
+}

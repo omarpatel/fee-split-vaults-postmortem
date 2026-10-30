@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "authoritative": false,
+  "publishedAtUnix": 0,
+  "publishedOnDate": "1970-01-01",
+  "fetchedAtUnix": 0,
+  "sourceUris": [
+    "https://sanctionslistservice.ofac.treas.gov/api/download/sdn.csv",
+    "https://sanctionslistservice.ofac.treas.gov/api/download/alt.csv"
+  ],
+  "entriesHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "entryCount": 0,
+  "entries": [],
+  "note": "PLACEHOLDER. This is not the SDN list. `authoritative: false` is the fail-closed marker: packages/screening refuses to issue a CLEAR against a non-authoritative source, so a deployment that never ran the fetch script cannot clear anybody, which is the correct behaviour and not a bug to work around. Populate it with `npm run fetch:ofac -w @fee-split-vaults/catalog`. The real list is roughly 17k entries and about 2 MB; it is deliberately not checked in, because a committed copy would look authoritative for exactly as long as it took to go stale, and `publishedAtUnix` is taken from OFAC's own publish date rather than from our download clock so the staleness gate measures the right thing."
+}

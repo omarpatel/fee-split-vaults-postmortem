@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+
+  // Solution file. It holds no sources of its own - `files: []` is what makes
+  // `tsc --build` at the root walk the reference graph instead of compiling the
+  // repository as one flat program.
+  //
+  // apps/web is NOT listed: it is a Vite app with `noEmit`, and `composite` and
+  // `noEmit` are mutually exclusive, so it cannot be a referenced project. Check
+  // it with `npm run typecheck:web`.
+  "files": [],
+  "references": [
+    { "path": "./config" },
+    { "path": "./packages/core" },
+    { "path": "./packages/catalog" },
+    { "path": "./packages/ledger" },
+    { "path": "./packages/indexer" },
+    { "path": "./packages/screening" },
+    { "path": "./packages/broker" },
+    { "path": "./packages/runtime" },
+    { "path": "./packages/publisher" },
+    { "path": "./packages/creative" },
+    { "path": "./packages/desk" },
+    { "path": "./packages/pilot" },
+    { "path": "./packages/orchestrator" },
+    { "path": "./packages/fleet" },
+    { "path": "./packages/adapters" },
+    { "path": "./apps/api" },
+    { "path": "./ops" }
+  ]
+}

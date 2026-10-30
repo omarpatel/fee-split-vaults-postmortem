@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fee split vaults — receipts</title>
+    <meta
+      name="description"
+      content="Per-token creator-fee vaults. Every credited fee, every budget pull, and every delivery check, published per token."
+    />
+    <!--
+      The stored theme is applied before first paint. Without this the page
+      renders in the system theme for one frame and then snaps, which reads as a
+      bug on a site whose whole pitch is that nothing here is sleight of hand.
+    -->
+    <script>
+      try {
+        var stored = localStorage.getItem('fee-split-vaults/theme')
+        if (stored === 'light' || stored === 'dark') {
+          document.documentElement.setAttribute('data-theme', stored)
+        }
+      } catch (_) {
+        /* private windows throw on storage access; the system theme is fine */
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

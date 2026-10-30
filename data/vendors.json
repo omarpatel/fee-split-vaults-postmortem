@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "note": "The payee allowlist. NO VENDOR CARRIES A PAYOUT ADDRESS, and the loader refuses one: the operator buys every third-party good as principal and is reimbursed from the procurement budget, so no third party is ever paid by this protocol. The single treasury destination is deployment configuration, not catalog data, because a payee that can be changed by editing a JSON file is not an allowlist. Vendors that require KYB or an OFAC screen ship DISABLED until those records exist; a JSON file cannot assert its own diligence.",
+  "vendors": [
+    {
+      "id": "operator",
+      "displayName": "SET_ME_BEFORE_LAUNCH (the operator)",
+      "isRelatedParty": true,
+      "reliabilityScore": 1,
+      "enabled": true,
+      "requires": [],
+      "note": "The operator's own labour is billed here and nowhere else. Flagged as a related party because it sells into a budget it directs: every operator-service line is capped at SPEND_LIMITS.relatedPartyCapOf30dBudget of the coin's own 30-day procurement budget and requires a per-dev opt-in. Display name tracks DISCLOSURE.operatorName in config/protocol.ts and must be set before launch."
+    },
+    {
+      "id": "dexscreener",
+      "displayName": "Dexscreener",
+      "isRelatedParty": false,
+      "reliabilityScore": 0.7,
+      "enabled": true,
+      "requires": [],
+      "note": "Self-serve storefront with publicly published prices, paid by the operator as principal on a corporate card. kybVerifiedAtUnix and ofacScreenedAtUnix are deliberately UNSET: the broker's payee_allowlist gate refuses every paid-media line for this vendor until the operator records both, and a seed file cannot assert its own diligence. Record the dates here from the operator's own KYB file and sanctions screen, not from this note. reliabilityScore starts at the probation value, not at trust."
+    },
+    {
+      "id": "dextools",
+      "displayName": "DEXTools",
+      "isRelatedParty": false,
+      "reliabilityScore": 0.7,
+      "enabled": true,
+      "requires": ["countersigned_quote"],
+      "note": "Self-serve storefront, but trending slots are quoted per campaign rather than list-priced, so every purchase needs a countersigned quote archived as a rate card before it can be made. The vendor is enabled; its SKU is not."
+    },
+    {
+      "id": "kol_mid_a",
+      "displayName": "Mid-tier KOL roster slot A",
+      "isRelatedParty": false,
+      "reliabilityScore": 0.7,
+      "enabled": false,
+      "requires": ["kyb", "ofac", "countersigned_quote"],
+      "note": "A ROSTER SLOT, not a person. The seed ships the slot and its diligence requirements; the operator fills it. Paying a named individual real money is where identity and sanctions screening actually bite, so the slot cannot be enabled until a KYB record and an OFAC screen exist. Naming specific creators in checked-in seed data would be both unverifiable and an implied endorsement."
+    },
+    {
+      "id": "kol_mid_b",
+      "displayName": "Mid-tier KOL roster slot B",
+      "isRelatedParty": false,
+      "reliabilityScore": 0.7,
+      "enabled": false,
+      "requires": ["kyb", "ofac", "countersigned_quote"],
+      "note": "Roster slot. See kol_mid_a."
+    },
+    {
+      "id": "kol_mid_c",
+      "displayName": "Mid-tier KOL roster slot C",
+      "isRelatedParty": false,
+      "reliabilityScore": 0.7,
+      "enabled": false,
+      "requires": ["kyb", "ofac", "countersigned_quote"],
+      "note": "Roster slot. See kol_mid_a."
+    }
+  ]
+}

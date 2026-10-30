@@ -1,0 +1,474 @@
+==============================================================================
+SECTION 9 PILOT - PRE-REGISTERED ANALYSIS PLAN
+pilot pilot-2026-q4   plan vault-pilot-plan/v1
+==============================================================================
+
+This document is committed by hash before the first block is observed. The
+analysis recomputes that hash and refuses to run if the plan moved. Everything
+below - the endpoint, the exclusions, the power derivation, the decision rule
+and the words that will be published in each outcome - is fixed at the moment
+of commitment and is not available afterwards.
+
+It is generated from the analysis plan itself rather than written next to it,
+so the document and the enforcing code cannot disagree.
+
+==============================================================================
+1. HYPOTHESIS
+==============================================================================
+
+Staffing the desk during a 12-hour block raises quote-denominated Venue-pool
+creator fees credited in the following 12 hours.
+
+This is the gate for the operations component of the service, which carries
+roughly 45% of its claimed value. If the effect is not demonstrated, that
+component is withdrawn from the offer rather than re-argued.
+
+==============================================================================
+2. DESIGN
+==============================================================================
+
+  kind                     within_coin_time_randomized
+  total length             60 days
+  block length             12 hours
+  randomized phase         first 30 days
+  second half              full coverage for every coin, every block
+  coins enrolled           40 to 60
+  matched pairs per coin   30
+  price to the client      free of charge; no fee, no budget, no vault, no contract
+
+The draw is taken at the DAY level. Each randomized day is a matched pair of
+two 12-hour blocks and exactly one of them is staffed, so the desk is never
+away for more than 24 consecutive hours and hour-of-day balances exactly
+rather than in expectation. Every coin receives full coverage for the second
+half: the study randomizes WHEN a free service arrives, never WHETHER it
+arrives.
+
+The assignment is a pure function of a seed published before enrolment, so any
+third party can recompute every arm of every block from the seed alone.
+
+==============================================================================
+3. ENDPOINTS
+==============================================================================
+
+  [PRIMARY] fees_log1p
+      log1p of quote-denominated Venue-pool creator fees (USD, pinned price)
+      credited in the 12 hours following the block.
+      transform log1p   window following_block_span
+
+  [SECONDARY] unique_new_buyers
+      Unique addresses making their first ever buy in the following 12 hours.
+      transform identity   window following_block_span
+
+  [SECONDARY] telegram_net_join_rate
+      Telegram (joins - leaves) divided by end-of-window members.
+      transform rate   window following_block_span
+
+  [SECONDARY] unanswered_backlog
+      Sum of the Digest topic code unanswered_backlog in the following 12
+      hours. Digest-derived only; no raw message is ever read.
+      transform identity   window following_block_span
+
+Every endpoint is measured over the 12 hours FOLLOWING the block, which is the
+next block's own span. That overlap is a property of the design and not an
+oversight; the next block's arm is recorded as a diagnostic so the carryover
+can be described, and it is not a covariate.
+
+The secondaries carry no multiplicity control and cannot support the decision.
+They are reported because a positive primary with contradictory secondaries is
+worth knowing about, not because any of them can rescue a negative primary.
+
+==============================================================================
+4. STRATIFICATION AND COVARIATES
+==============================================================================
+
+  hour_of_day              stratification
+  day_of_week              stratification
+
+Adjustment covariates: NONE, and the analysis refuses any covariate that is
+not one of the stratification variables above. Without that refusal,
+hour-of-day and day-of-week stop being stratification variables and become the
+two knobs a motivated analyst turns until the desk looks profitable.
+
+==============================================================================
+5. EXCLUSIONS
+==============================================================================
+
+Each rule below names the physical mechanism it removes. All of them are
+applied by the analysis function itself, from this committed plan, so none can
+be forgotten and none can be added later. The analysis refuses to run if an
+exclusion report supplied with a dataset does not match the set this plan
+produces.
+
+  NON_RANDOMIZED_PHASE
+  ----------------------------------------------------------------------------
+    MECHANISM
+      Every coin receives full desk coverage for the second half of the trial.
+      Those blocks were never randomized.
+    RULE
+      A block whose phase is not RANDOMIZED contributes nothing to the primary
+      comparison.
+    JUSTIFICATION
+      There is no contrast to make. The full-coverage half exists so that the
+      study randomizes WHEN a free service arrives and never WHETHER it
+      arrives.
+
+  UNVALUED_WINDOW
+  ----------------------------------------------------------------------------
+    MECHANISM
+      Approved quote assets are upgradeable, pausable proxies. A paused asset,
+      an unapproved asset or a missing pinned price means the window has no
+      USD value.
+    RULE
+      A window whose fees could not be valued is excluded. Its endpoint is
+      recorded as NaN, never as zero, so a failure to exclude it aborts the
+      analysis instead of silently averaging in a false zero.
+    JUSTIFICATION
+      An unmeasured window is not a zero-fee window. Imputing zero would move
+      the endpoint toward zero in whichever arm happened to be running when
+      the asset was paused, and the pause has no relationship to the desk.
+
+  LAUNCH_WINDOW_ANTI_SNIPE
+  ----------------------------------------------------------------------------
+    MECHANISM
+      Venue charges an anti-snipe tax of 99% at t=0 that decays to zero over
+      roughly three seconds, and it reaches the fee recipient along the
+      ordinary fee rails. It is real money, it is credited like ordinary
+      revenue, and relative to the organic 12-hour flow of a coin it can be
+      one to two orders of magnitude larger.
+    RULE
+      Every follow-window that starts within 24 hours of the TokenLaunched
+      timestamp for that coin is excluded, and so is any window carrying a
+      credit the classifier attributed to the anti-snipe window (within 5
+      seconds of launch, or an effective fee rate above twice the hook fee).
+      Because the drop is at the day level, the sibling 12-hour block of the
+      same day goes with it.
+    JUSTIFICATION
+      Three reasons for 24 hours rather than "the first block". First,
+      post-graduation fees arrive as AGGREGATED SWEEPS whose timestamp is that
+      of the sweep and not of the trade, so a windfall accrued at t=0 can be
+      credited materially later and a one-block rule would miss it. Second,
+      the same first day carries launch price discovery, which is a different
+      mechanism with the same signature: an enormous fee spike that no desk
+      caused. Third, dropping a whole 24-hour day-pair preserves the EXACT
+      hour-of-day balance the assignment generator guarantees, which dropping
+      a single half-day would break - and hour-of-day is a stratification
+      variable precisely because this data is violently diurnal. The
+      onboarding hold the operator already runs is 900 seconds, which is
+      calibrated to tax decay and settlement rather than to sweep cadence, so
+      it is not the right N here and 24 hours is the conservative choice on
+      all three grounds.
+
+  GRADUATION_MECHANISM_CHANGE
+  ----------------------------------------------------------------------------
+    MECHANISM
+      Before graduation the creator fee of a coin is an explicit per-trade
+      field on its own curve contract. After graduation it is an aggregated
+      PoolFeesSwept keyed by poolId. The rate basis, the batching and the
+      timestamp semantics all change, and the first sweep after the switch can
+      carry accrued backlog.
+    RULE
+      Windows in which both mechanisms are observed are excluded, and so is
+      every window starting within 48 hours of the first observed
+      PoolFeesSwept for that coin. The day-pair widening applies. The coin
+      keeps all of its other windows.
+    JUSTIFICATION
+      The endpoint would otherwise change definition inside the series of a
+      single coin, which is the one thing a within-coin design cannot absorb.
+      48 hours covers the first full sweep cycle after the change so that the
+      backlog sweep is not read as a desk effect. Excluding the coin entirely
+      would be worse: graduation is plausibly correlated with the traits that
+      make a coin worth studying.
+
+  RECIPIENT_CHANGE
+  ----------------------------------------------------------------------------
+    MECHANISM
+      The creator-fee recipient can move: self-service and immediate by the
+      current recipient, or by the three-day-timelocked override held by the
+      Venue owner. After it moves, the fees belong to a different party under
+      different incentives, and that party may be running their own promotion.
+    RULE
+      Every window of that coin from the recipient change onward is excluded.
+      Earlier windows are kept.
+    JUSTIFICATION
+      The change is an intervention on the thing being measured and it is not
+      caused by the desk. It is not reversible by any analysis, so the coin is
+      censored at the change rather than adjusted.
+
+  COMMITTED PARAMETERS
+    launch exclusion              24 hours from launch
+    graduation exclusion          48 hours from the first sweep
+    anti-snipe classification     5 seconds from launch
+    drop unit                     whole 24-hour day-pair
+    delivery-failure ceiling      10% of staffed blocks
+    whale flag threshold          50% of a window in one credit
+
+  IN PROSE, AS THE PLAN CARRIES IT
+    - Blocks in the full-coverage second half are not randomized and are
+      excluded from the primary comparison.
+    - A coin contributes only strata in which both arms were observed.
+    - A window whose fees could not be valued (kill-switched asset, missing
+      pinned price) is excluded, never imputed as zero.
+    - Every follow-window starting within 24 hours of the coin launch is
+      excluded, because the 99%-at-t=0 anti-snipe tax reaches the fee
+      recipient along the ordinary rails and can dominate a log1p series by
+      itself.
+    - Windows within 48 hours of the coin graduating are excluded, because
+      graduation changes the fee mechanism underneath the series of that coin.
+    - Every window from a creator-fee recipient change onward is excluded for
+      that coin.
+    - A whale-dominated window and a block the desk failed to deliver are
+      FLAGGED and kept: both are conditioned on what happened after
+      randomization, and dropping either would bias the effect toward the
+      operator.
+
+==============================================================================
+6. SENSITIVITY ANALYSES (REPORTED, NEVER DECISIVE)
+==============================================================================
+
+These two contaminants are deliberately NOT excluded from the primary. Both
+condition on something that happens after randomization, and dropping either
+would bias the effect in the direction the operator wants. They are run,
+printed next to the primary, and structurally incapable of changing the
+verdict.
+
+  PER_PROTOCOL_DELIVERY   gates the decision: no
+      Re-runs the primary excluding blocks where the desk did not deliver the
+      assigned arm - a staffed block we failed to cover, or an unstaffed block
+      somebody answered in anyway.
+    WHY IT IS NOT AN EXCLUSION
+      The primary is intention-to-treat. Dropping non-compliant blocks
+      conditions on post-randomization behaviour and reliably flatters the
+      treatment, because the blocks we fail to cover are not a random sample
+      of blocks. Delivery failure is instead capped: past 10% of staffed
+      blocks the trial is reported as compromised, which can only withhold a
+      proceed and never grant one.
+
+  WHALE_DOMINATED_WINDOW   gates the decision: no
+      Re-runs the primary excluding windows in which a single fee credit
+      accounts for at least half of the USD total for that window.
+    WHY IT IS NOT AN EXCLUSION
+      A single enormous trade is real revenue with no plausible desk
+      mechanism, so the temptation to drop it is strong. It is nonetheless an
+      outcome-conditioned exclusion applied after randomization, and even
+      applied blind to arm it biases the treatment effect whenever treatment
+      shifts the outcome distribution - which is the hypothesis. The log1p
+      transform already compresses a whale by construction. So it is flagged,
+      reported, and left in.
+
+==============================================================================
+7. POWER
+==============================================================================
+
+n = 40-60 arrived from a brief. What follows is the derivation for THIS design
+- paired within coin, matched 12-hour blocks, Hodges-Lehmann with a percentile
+bootstrap, decided by the two-part rule in section 8 - and not for the
+between-coin trial whose textbook formula would flatter it.
+
+  METHOD
+    normal_approximation_validated_by_simulation
+    The committed rule reads only the bootstrap interval and the
+    Hodges-Lehmann point estimate, both asymptotically normal, so the rule has
+    a usable normal approximation and that is what the table below reports.
+    The Wilcoxon signed-rank test has no closed-form power; a seeded Monte
+    Carlo simulation that runs the real analysis functions supplies it, and
+    validates the table at the spot-check points.
+
+  ASSUMPTIONS, STATED SO THEY CAN BE ARGUED WITH
+    alpha                              0.05
+    target power                       80%
+    matched pairs per coin             30
+    within-coin SD grid (log1p)        0.5, 1, 1.5, 2, 2.5
+    planning within-coin SD            1.5
+    between-coin effect SD             0.1
+    estimator efficiency vs the mean   0.9549
+    coins enrolled                     40 to 60
+    simulation                         seed vault-pilot-power/v1, 400 trials, 1000 bootstrap draws
+
+    The within-coin SD is the SD of log1p(fees) across 12-hour windows after
+    hour-of-day and day-of-week are taken out as strata. It must still include
+    day-level shocks: the estimator compares a staffed Monday morning against
+    a DIFFERENT unstaffed Monday morning, so a day-level shock is not
+    differenced out by that contrast. The between-coin effect SD is
+    heterogeneity in the true effect, which no number of blocks per coin
+    removes - only more coins touch it.
+
+  POWER OF THE COMMITTED RULE
+    coins  SD      true effect   rule power
+    40     0.5     +10%           0.500
+    40     0.5     +20%           1.000
+    40     0.5     +30%           1.000
+    40     1.0     +10%           0.500
+    40     1.0     +20%           0.974
+    40     1.0     +30%           1.000
+    40     1.5     +10%           0.313
+    40     1.5     +20%           0.804
+    40     1.5     +30%           0.982
+    40     2.0     +10%           0.200
+    40     2.0     +20%           0.572
+    40     2.0     +30%           0.869
+    40     2.5     +10%           0.145
+    40     2.5     +20%           0.407
+    40     2.5     +30%           0.699
+    60     0.5     +10%           0.500
+    60     0.5     +20%           1.000
+    60     0.5     +30%           1.000
+    60     1.0     +10%           0.500
+    60     1.0     +20%           0.991
+    60     1.0     +30%           1.000
+    60     1.5     +10%           0.438
+    60     1.5     +20%           0.932
+    60     1.5     +30%           0.999
+    60     2.0     +10%           0.278
+    60     2.0     +20%           0.747
+    60     2.0     +30%           0.965
+    60     2.5     +10%           0.196
+    60     2.5     +20%           0.561
+    60     2.5     +30%           0.860
+
+  SIMULATION SPOT-CHECKS (real analysis path, seeded)
+    coins  SD      true effect   rule    wilcoxon
+    60     1.5     +10%          0.430   0.440
+    60     1.5     +20%          0.905   0.900
+    40     2.5     +20%          0.432   0.405
+
+    The two agree to within about six points at every checked design, in both
+    directions, which is roughly two Monte Carlo standard errors at 400
+    trials. Neither is tuned to the other. Under a true null the committed
+    rule returns PROCEED about 3% of the time, below alpha, because the rule
+    is one-sided in effect and additionally requires the point estimate to
+    clear the threshold.
+
+  MINIMUM DETECTABLE EFFECT, at the planning SD
+    40 coins   +19.88% per staffed block
+    60 coins   +15.96% per staffed block
+
+  ADEQUACY, COMMITTED IN ADVANCE
+    POWER, DERIVED AND REGISTERED BEFORE COLLECTION. n=40-60 originally came
+    from a brief rather than from a derivation. Derived for this design -
+    paired within coin, 30 matched 12-hour pairs per coin, Hodges-Lehmann with
+    a percentile bootstrap, alpha 0.05, 80% target - the answer has three
+    parts, and the first is the one that matters most. (1) THE COMMITTED RULE
+    CANNOT DETECT +10% AT ANY SAMPLE SIZE. The rule requires the POINT
+    ESTIMATE to reach +10%, so against a true effect of exactly +10% it fires
+    with probability approaching one half from below, however many coins are
+    enrolled. +10% is the minimum effect worth acting on, not the smallest
+    effect this trial can find. A DO NOT PROCEED result rules out a large
+    effect; it does NOT rule out a real effect somewhere between zero and
+    +10%, and it must never be reported as though it did. (2) AGAINST +20%,
+    40-60 COINS IS ADEQUATE ONLY IF THE ENDPOINT IS NOT TOO NOISY. At a
+    within-coin SD of 1.5 the minimum detectable effect is +19.9% at 40 coins
+    and +16.0% at 60, and 40 coins is exactly the number needed for 80% power
+    against +20%. At an SD of 1.0 the design is generous: 19 coins would do.
+    At an SD of 2.0 it is INSUFFICIENT - 69 coins are needed and 60 delivers
+    75% - and at an SD of 2.5 it is badly insufficient, needing 106. An SD of
+    2.0 to 2.5 is not a pessimistic invention: a late-life coin whose 12-hour
+    windows alternate between real flow and literally zero is zero-inflated,
+    and a series that is 30% zeros and 70% around log1p 5 has an SD near 2.3.
+    (3) THE HONEST CONCLUSION. Enrol at the TOP of the range, 60 and not 40,
+    because the marginal coin is cheap and the difference between 40 and 60 is
+    the difference between +19.9% and +16.0% detectable. Report the observed
+    within-coin SD in the results, because it determines retrospectively which
+    of the rows above the trial was actually in. And if the observed SD comes
+    in at or above 2.0, say plainly that the trial was underpowered for its
+    own question rather than reporting the null as an answer.
+
+==============================================================================
+8. DECISION RULE
+==============================================================================
+
+PROCEED TO PHASE 1 if and only if the 95% bootstrap interval on the primary
+endpoint excludes zero AND the Hodges-Lehmann point estimate is at least +10%
+per staffed block, over at least 40 coins each contributing at least 1 stratum
+in which both arms were observed.
+
+The rule is evaluated mechanically, with no human in the loop, and the
+statement it emits is the one committed below, verbatim. There is no branch in
+which a result is interpreted, subset or re-analysed against a different
+endpoint.
+
+  ON SUCCESS
+    DECISION: PROCEED TO PHASE 1. The pre-registered 95% interval on the
+    desk-coverage effect excludes zero and the point estimate on
+    quote-denominated Venue-pool creator fees clears the committed threshold.
+
+  ON FAILURE
+    DECISION: DO NOT PROCEED TO PHASE 1. The pre-registered desk-coverage
+    effect was not demonstrated. The operations component, which carries
+    roughly 45% of the claimed value of the service, is therefore unsupported
+    by this experiment. This result is not to be reinterpreted, subset, or
+    re-analysed against a different endpoint; the plan was fixed before the
+    data existed and this is the answer it returned.
+
+  IF UNDERPOWERED
+    DECISION: DO NOT PROCEED TO PHASE 1 ON THIS EVIDENCE. The study did not
+    reach the pre-registered minimum sample, so it neither demonstrates nor
+    refutes the desk-coverage effect. Enrol the committed number of coins and
+    rerun the same plan; do not analyse the partial sample for a result.
+
+  IF DELIVERY COMPROMISED
+    DECISION: DO NOT PROCEED TO PHASE 1 ON THIS EVIDENCE. The desk failed to
+    deliver its own assigned arm on more than the pre-registered share of
+    staffed blocks, so the arms do not describe what actually happened and the
+    contrast is not interpretable in either direction. This is an operator
+    failure, not a finding about desks. Fix the delivery problem, rerun the
+    trial under a fresh assignment, and report both runs.
+
+==============================================================================
+9. ETI SUB-STUDY
+==============================================================================
+
+  enabled   40 coins, 14-day control lag
+  endpoint fees_log1p   estimator difference_in_differences
+  inference permutation_on_cohort_labels, 10000 iterations
+
+Only the ORDER of purchase is randomized; every coin gets the listing. The
+sub-study informs procurement and DOES NOT gate Phase 1. The operator buys the
+listing as principal, in its own name, out of its own money.
+
+==============================================================================
+10. WHAT IS PUBLISHED, INCLUDING IF THE RESULT IS NULL
+==============================================================================
+
+PUBLICATION COMMITMENT: this pre-registration, the assignment, the per-block
+dataset, the exclusion log and the analysis output are published in full
+within 30 days of the analysis date, whatever the answer is. A null result is
+published with the same prominence as a positive one, under the failure
+statement committed above, and the operations component of the service is
+withdrawn from the offer rather than re-argued. No endpoint, exclusion,
+subgroup or estimator that does not appear in this document will be reported
+as though it had been planned.
+
+  Published within 30 days of the analysis date:
+    - this pre-registration document and its hash, with the commitment
+      timestamp and anchor
+    - the published seed and the full block-level assignment, so any third
+      party can recompute every arm
+    - the per-block dataset: arm, phase, strata, follow window, fee total in
+      minor units and USD with its price provenance
+    - the exclusion log: every block dropped, under which registered rule,
+      with its integrity facts
+    - the analysis output verbatim, including the Wilcoxon statistic, the
+      Hodges-Lehmann estimate, the bootstrap interval and both sensitivity
+      re-runs
+    - the registered power analysis and the adequacy statement, unedited
+
+==============================================================================
+11. WHAT WOULD INVALIDATE THIS TRIAL
+==============================================================================
+
+  - Any change to this plan after commitment. The hash is checked at analysis
+    time and a mismatch stops the analysis rather than warning about it.
+  - A dataset whose assignment hash does not match the committed assignment:
+    the arms may have moved.
+  - An exclusion set that differs from the one this plan produces, in either
+    direction.
+  - Any covariate introduced at analysis time, including a stratification
+    variable re-declared as an adjustment.
+  - Delivery failure above 10% of staffed blocks, which voids the arm contrast
+    and returns COMPROMISED_DELIVERY.
+  - A plan committed after the first observation. The analysis checks the
+    commitment timestamp against the earliest observation and refuses.
+
+==============================================================================
+END OF PRE-REGISTRATION
+==============================================================================

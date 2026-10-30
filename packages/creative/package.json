@@ -1,0 +1,35 @@
+{
+  "name": "@fee-split-vaults/creative",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Deterministic per-coin creative: banner, avatar and post-card PNGs rendered by code from trusted inputs (chain-read symbol/name, an operator-approved NarrativeProfile). No model authors pixels or text here.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "typecheck": "tsc --build --force && tsc -p tsconfig.test.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fee-split-vaults/core": "*",
+    "@resvg/resvg-js": "^2.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

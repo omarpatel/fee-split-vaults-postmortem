@@ -1,0 +1,43 @@
+{
+  "name": "@fee-split-vaults/api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The control-plane service: consent signing and verification, vault deployment, the dual-consent onboarding machine, receipts, and the weekly report.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "typecheck": "tsc --build --force && tsc -p tsconfig.test.json",
+    "start": "node dist/main.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fee-split-vaults/adapters": "*",
+    "@fee-split-vaults/broker": "*",
+    "@fee-split-vaults/catalog": "*",
+    "@fee-split-vaults/core": "*",
+    "@fee-split-vaults/creative": "*",
+    "@fee-split-vaults/fleet": "*",
+    "@fee-split-vaults/indexer": "*",
+    "@fee-split-vaults/ledger": "*",
+    "@fee-split-vaults/orchestrator": "*",
+    "@fee-split-vaults/publisher": "*",
+    "@fee-split-vaults/runtime": "*",
+    "@fee-split-vaults/screening": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

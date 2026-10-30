@@ -1,0 +1,35 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+solc_version = "0.8.24"
+
+# Chain 4663's EVM revision is not published. `paris` avoids PUSH0 (Shanghai)
+# and transient storage (Cancun), so the deployed bytecode is valid on any
+# post-London chain. Do not raise this without re-verifying the target chain.
+evm_version = "paris"
+
+optimizer = true
+optimizer_runs = 200
+# CoinVault is close to EIP-170 under the legacy pipeline. via_ir buys roughly
+# 3KB of headroom so an audit fix never has to be traded against bytecode size.
+via_ir = true
+bytecode_hash = "none"
+cbor_metadata = false
+
+# Deterministic addresses are load-bearing: predictVault() must agree with the
+# off-chain prediction in packages/chain. Metadata in the init code would make
+# the init code hash depend on the compiler's path layout, so it is disabled.
+
+fs_permissions = [{ access = "read", path = "./out" }]
+
+[fuzz]
+runs = 512
+
+[invariant]
+runs = 256
+depth = 64
+fail_on_revert = false
+call_override = false
+shrink_run_limit = 5000

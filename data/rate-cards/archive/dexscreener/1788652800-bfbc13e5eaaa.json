@@ -1,0 +1,16 @@
+{
+  "vendorId": "dexscreener",
+  "archivedAtUnix": 1788652800,
+  "archivedOnDate": "2026-09-06",
+  "sourceUri": "https://marketplace.dexscreener.com/",
+  "kind": "vendor_public_pricing",
+  "sourceHash": "bfbc13e5eaaa11bd775e519b8c7911c0f96ce79feea07e5f0804e101d1d04eae",
+  "listPriceUsd": {
+    "dexscreener_eti": 299,
+    "dexscreener_boost_10": 99,
+    "dexscreener_boost_30": 299,
+    "dexscreener_boost_100": 899,
+    "dexscreener_boost_500": 3999
+  },
+  "note": "Manual transcription of the publicly published price list as observed on 2026-09-06. sourceHash seals THIS document, not the vendor's HTML: a card produced by the live fetcher seals the response bytes instead, and its kind is the same. Either way the catalog pins the hash, so a price cannot move without the pin breaking. Re-archived daily by the reconciliation job; a card older than 26 hours disables every SKU priced against it."
+}

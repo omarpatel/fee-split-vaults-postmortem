@@ -1,0 +1,22 @@
+{
+  "name": "@fee-split-vaults/tools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Phase 0 measurement CLIs: escrow indexing, tenure survival analysis, fee-rate probes, market sizing and repricing.",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run --config vitest.config.ts",
+    "test:watch": "vitest --config vitest.config.ts",
+    "escrow-index": "node escrow-index.ts",
+    "tenure": "node tenure.ts",
+    "pool-fees-index": "node pool-fees-index.ts",
+    "fee-bps-probe": "node fee-bps-probe.ts",
+    "addressable-market": "node addressable-market.ts",
+    "reprice": "node reprice.ts",
+    "cross-verify": "node cross-verify.ts"
+  },
+  "engines": {
+    "node": ">=22.18"
+  }
+}

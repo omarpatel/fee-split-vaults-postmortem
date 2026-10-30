@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.json",
+  "include": ["prospects.ts", "eligibility.ts", "lib/**/*.ts", "__tests__/**/*.ts", "../config/protocol.ts"],
+  "exclude": ["lib/demo/**"]
+}

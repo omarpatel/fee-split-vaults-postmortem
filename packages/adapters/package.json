@@ -1,0 +1,42 @@
+{
+  "name": "@fee-split-vaults/adapters",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Real implementations of the orchestrator's ports: an incremental RPC chain read model, a Telegram message source, and Postgres-backed fleet counters and escalations.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "typecheck": "tsc --build --force && tsc -p tsconfig.test.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@noble/secp256k1": "^3.2.0",
+    "@fee-split-vaults/broker": "*",
+    "@fee-split-vaults/core": "*",
+    "@fee-split-vaults/desk": "*",
+    "@fee-split-vaults/indexer": "*",
+    "@fee-split-vaults/ledger": "*",
+    "@fee-split-vaults/orchestrator": "*",
+    "@fee-split-vaults/publisher": "*",
+    "@fee-split-vaults/runtime": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "publishedAtUnix": 1788652800,
+  "note": "Refresh cadence per list, and - the part that matters - what happens when a list is older than its budget. Every `onStale` value is a refusal of some kind. None of them is 'carry on with the old copy', because a screening stage running on a list nobody refreshed is a stage that reports CLEAR for the wrong reason. `cadence` is for the operator; `maxAgeSeconds` is the half the code enforces.",
+  "rules": [
+    {
+      "listId": "ofac_sdn",
+      "cadence": "daily 07:00 UTC, and again on any OFAC publication notice",
+      "maxAgeSeconds": 604800,
+      "source": "https://sanctionslistservice.ofac.treas.gov/api/download/sdn.csv (+ alt.csv for aliases)",
+      "onStale": "refuse_clear",
+      "note": "Matches DEFAULT_SDN_POLICY.maxListAgeSeconds in packages/screening/src/ofac.ts. This is the one list whose false negative has a legal consequence rather than a commercial one, so a stale list cannot produce a CLEAR at all - not merely 'no paid media'. The shipped cache is non-authoritative and empty, which fails the same way."
+    },
+    {
+      "listId": "hate_lexicon",
+      "cadence": "weekly, Monday, with a monthly review of category coverage",
+      "maxAgeSeconds": 2592000,
+      "source": "operator-controlled storage; digests computed with hashTerm() from @fee-split-vaults/catalog",
+      "onStale": "block_paid_media",
+      "note": "Slur lexicons churn: new coinages, new spellings, new numeric codes. A month-old list still catches the durable terms, which is why this blocks paid media rather than all screening - the coin can keep operating organically while the list is refreshed."
+    },
+    {
+      "listId": "marks",
+      "cadence": "monthly, and on any inbound trademark complaint",
+      "maxAgeSeconds": 7776000,
+      "source": "data/screening/marks.json, maintained by the operator alongside counsel",
+      "onStale": "block_paid_media",
+      "note": "Marks and public figures move slowly, so the budget is a quarter. The complaint-driven half of the cadence is the one that actually matters: the list should grow every time someone writes to us."
+    },
+    {
+      "listId": "drainer_domains",
+      "cadence": "daily 06:00 UTC from the public feeds; on incident from our own chats",
+      "maxAgeSeconds": 172800,
+      "source": "data/screening/drainer-domains.json feeds[]",
+      "onStale": "block_link_posting",
+      "note": "48 hours, because drainer infrastructure rotates hosts in hours. On staleness the desk stops posting links at all rather than posting them unchecked; the allowlist keeps the four links a project actually publishes working."
+    },
+    {
+      "listId": "catalog_rate_cards",
+      "cadence": "daily, before the procurement window opens",
+      "maxAgeSeconds": 93600,
+      "source": "data/rate-cards/, archived under data/rate-cards/archive/",
+      "onStale": "block_paid_media",
+      "note": "26 hours, matching RATE_CARD_MAX_AGE_SECONDS. An unreconciled price is a price the operator could be marking up, so the SKU is disabled rather than sold with an asterisk."
+    },
+    {
+      "listId": "factsheet_schema",
+      "cadence": "on change only; reviewed whenever a new fact field is added",
+      "maxAgeSeconds": 31536000,
+      "source": "data/factsheet-schema.json",
+      "onStale": "block_all_screening",
+      "note": "The schema is a declaration, not an observation, so it does not go stale on its own. The year budget exists so that a schema nobody has looked at in a year forces a review rather than quietly outliving the contracts it describes."
+    }
+  ]
+}

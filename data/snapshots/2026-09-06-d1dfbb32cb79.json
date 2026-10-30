@@ -1,0 +1,197 @@
+{
+  "snapshotId": "d1dfbb32cb79d90befa5b03deb3105954a4b7e236233f973501e2be6009e79b7",
+  "takenAtUnix": 1788652800,
+  "takenOnDate": "2026-09-06",
+  "lines": [
+    {
+      "skuId": "dexscreener_boost_10",
+      "vendorId": "dexscreener",
+      "pricing": "third_party_pass_through",
+      "unitCents": "9900",
+      "enabled": true,
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "priceReference": "ratecard:dexscreener@bfbc13e5eaaa11bd775e519b8c7911c0f96ce79feea07e5f0804e101d1d04eae",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "dexscreener_boost_100",
+      "vendorId": "dexscreener",
+      "pricing": "third_party_pass_through",
+      "unitCents": "89900",
+      "enabled": true,
+      "availableAtTiers": [
+        "T2",
+        "T3"
+      ],
+      "priceReference": "ratecard:dexscreener@bfbc13e5eaaa11bd775e519b8c7911c0f96ce79feea07e5f0804e101d1d04eae",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "dexscreener_boost_30",
+      "vendorId": "dexscreener",
+      "pricing": "third_party_pass_through",
+      "unitCents": "29900",
+      "enabled": true,
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "priceReference": "ratecard:dexscreener@bfbc13e5eaaa11bd775e519b8c7911c0f96ce79feea07e5f0804e101d1d04eae",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "dexscreener_boost_500",
+      "vendorId": "dexscreener",
+      "pricing": "third_party_pass_through",
+      "unitCents": "399900",
+      "enabled": true,
+      "availableAtTiers": [
+        "T2",
+        "T3"
+      ],
+      "priceReference": "ratecard:dexscreener@bfbc13e5eaaa11bd775e519b8c7911c0f96ce79feea07e5f0804e101d1d04eae",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "dexscreener_eti",
+      "vendorId": "dexscreener",
+      "pricing": "third_party_pass_through",
+      "unitCents": "29900",
+      "enabled": true,
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "priceReference": "ratecard:dexscreener@bfbc13e5eaaa11bd775e519b8c7911c0f96ce79feea07e5f0804e101d1d04eae",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "dextools_trending_24h",
+      "vendorId": "dextools",
+      "pricing": "third_party_pass_through",
+      "unitCents": "300000",
+      "enabled": false,
+      "availableAtTiers": [
+        "T3"
+      ],
+      "priceReference": "ratecard:dextools@unpinned",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "kol_mid_a_post",
+      "vendorId": "kol_mid_a",
+      "pricing": "third_party_pass_through",
+      "unitCents": "50000",
+      "enabled": false,
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "priceReference": "ratecard:kol_mid_a@unpinned",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "kol_mid_b_post",
+      "vendorId": "kol_mid_b",
+      "pricing": "third_party_pass_through",
+      "unitCents": "150000",
+      "enabled": false,
+      "availableAtTiers": [
+        "T2",
+        "T3"
+      ],
+      "priceReference": "ratecard:kol_mid_b@unpinned",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "kol_mid_c_post",
+      "vendorId": "kol_mid_c",
+      "pricing": "third_party_pass_through",
+      "unitCents": "500000",
+      "enabled": false,
+      "availableAtTiers": [
+        "T2",
+        "T3"
+      ],
+      "priceReference": "ratecard:kol_mid_c@unpinned",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "operator_build_integration_hour",
+      "vendorId": "operator",
+      "pricing": "operator_service",
+      "unitCents": "9500",
+      "enabled": true,
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "priceReference": "schedule:operator-published-rates@v1",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "operator_build_landing_page",
+      "vendorId": "operator",
+      "pricing": "operator_service",
+      "unitCents": "60000",
+      "enabled": true,
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "priceReference": "schedule:operator-published-rates@v1",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "operator_creative_static_set",
+      "vendorId": "operator",
+      "pricing": "operator_service",
+      "unitCents": "18000",
+      "enabled": true,
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "priceReference": "schedule:operator-published-rates@v1",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "operator_creative_video_short",
+      "vendorId": "operator",
+      "pricing": "operator_service",
+      "unitCents": "42000",
+      "enabled": true,
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "priceReference": "schedule:operator-published-rates@v1",
+      "provenanceObservedAtUnix": 1788652800
+    },
+    {
+      "skuId": "operator_moderation_hour",
+      "vendorId": "operator",
+      "pricing": "operator_service",
+      "unitCents": "4500",
+      "enabled": true,
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "priceReference": "schedule:operator-published-rates@v1",
+      "provenanceObservedAtUnix": 1788652800
+    }
+  ]
+}

@@ -1,0 +1,321 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+# A push that supersedes an in-flight run cancels it, except on the default
+# branch where every commit's result is a record we want to keep.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # TypeScript
+  # ---------------------------------------------------------------------------
+  typecheck:
+    name: typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --no-audit --fund=false
+      # --force, so a stale .tsbuildinfo from the cache cannot make a broken
+      # project look like an up-to-date one.
+      - run: npm run typecheck
+
+      # The build configs exclude __tests__, so `tsc --build` does NOT check
+      # test sources. A test file that does not compile is a test that is not
+      # run, so every package's test config is checked here.
+      - name: typecheck test-only sources
+        run: npm run typecheck:tests
+
+      # apps/web is a Vite app with noEmit, so it cannot be a composite project
+      # and is not in the root reference graph.
+      - name: typecheck apps/web
+        run: npm run typecheck:web
+
+      # Cross-package checks no single package can make about itself: import
+      # resolution, package names, and whether declared workspace dependencies
+      # match what is actually imported and referenced.
+      - name: repository coherence
+        run: npm run check
+
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --no-audit --fund=false
+
+      # ESLint runs when the repository has both a config and the binary. It is
+      # not silently skipped: the step says which happened, so "lint is green"
+      # never means "lint did not run" without saying so.
+      - name: eslint
+        run: |
+          if [ -f eslint.config.js ] || [ -f eslint.config.mjs ] || [ -f .eslintrc.cjs ] || [ -f .eslintrc.json ]; then
+            npm run lint
+          else
+            echo "::warning title=ESLint not configured::No flat config at the repository root; skipping eslint. The structural import lint below still runs."
+          fi
+
+      # A zero-dependency structural lint that always runs.
+      #
+      # THE SCOPE IS NOW EVERYTHING THAT COMPILES TO dist/. An extensionless
+      # relative import type-checks cleanly under `moduleResolution: Bundler`,
+      # passes vitest (which resolves it), and then throws ERR_MODULE_NOT_FOUND
+      # the first time the emitted JavaScript runs. That is exactly the bug this
+      # widening caught in packages/ledger. tools/ stays out of scope because it
+      # runs under --experimental-strip-types, where .ts specifiers are correct.
+      - name: build the ops gates
+        run: npx tsc --build ops/tsconfig.json
+      - name: esm import hygiene
+        run: node ops/ci/lint-imports.js --scope ops --scope packages --scope apps --scope config
+
+  # ---------------------------------------------------------------------------
+  # Tests
+  # ---------------------------------------------------------------------------
+  unit-tests:
+    name: unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --no-audit --fund=false
+      - name: packages and apps
+        run: npm test
+      # ops/ has its own vitest project because the root config's `include` does
+      # not cover it and because ops compiles in place, which needs a resolver
+      # that prefers the TypeScript source. Run it explicitly so it cannot be
+      # quietly dropped.
+      - name: ops
+        run: npx vitest run --root ops
+      # tools/ is not an npm workspace the root glob reaches, so its suite runs
+      # explicitly.
+      - name: tools
+        run: npx vitest run --config tools/vitest.config.ts
+
+  # ---------------------------------------------------------------------------
+  # Contracts
+  # ---------------------------------------------------------------------------
+  contracts:
+    name: contracts build and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - name: forge build
+        run: forge build --root contracts --sizes
+      - name: forge test
+        run: forge test --root contracts -vvv
+
+  # The INVARIANT suite is a separate required job on purpose. It is slower and
+  # it is stateful-fuzzing, so folding it into `forge test` invites someone to
+  # shorten the run to keep the main job fast. Separate job, separate budget,
+  # separate required check.
+  contract-invariants:
+    name: contract invariants
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - name: forge invariant suite
+        run: forge test --root contracts --match-path 'test/invariant/*' -vvv
+        env:
+          # Deeper than the local default. The invariants are the only thing
+          # standing between a solvency bug and a client's money.
+          FOUNDRY_INVARIANT_RUNS: '512'
+          FOUNDRY_INVARIANT_DEPTH: '64'
+          FOUNDRY_FUZZ_RUNS: '1024'
+
+  # ---------------------------------------------------------------------------
+  # Gates
+  # ---------------------------------------------------------------------------
+  no-hardcoded-rates:
+    name: no hardcoded creator rate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --no-audit --fund=false
+      - run: npx tsc --build ops/tsconfig.json
+      # The creator's net BRANCHES on buybackEnabled - 0.70% off, 0.35% on. Any
+      # file outside config/protocol.ts that writes the rate down is wrong for
+      # half the book, in the direction that overstates what a client earns.
+      - name: scan for hardcoded creator-rate literals
+        run: node ops/ci/no-hardcoded-rates.js
+      - name: the gate's own tests
+        run: npx vitest run --root ops ci/__tests__/no-hardcoded-rates.spec.ts
+
+  secret-scan:
+    name: secret scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history, so the optional gitleaks step below can look at more
+          # than the tip commit.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --no-audit --fund=false
+      - run: npx tsc --build ops/tsconfig.json
+      - name: working-tree secret scan
+        run: node ops/ci/secret-scan.js
+      # A second opinion with history coverage. Advisory: the gate above is the
+      # required one, because it needs no network and no third-party action.
+      - name: gitleaks (advisory)
+        continue-on-error: true
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  # ---------------------------------------------------------------------------
+  # Migrations run against a real Postgres. A migration that only ever runs
+  # against a fake driver is a migration whose SQL has never been parsed.
+  # ---------------------------------------------------------------------------
+  migrations:
+    name: migrations against postgres
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: fsv
+          POSTGRES_PASSWORD: ci-placeholder-not-a-secret
+          POSTGRES_DB: fee_split_vaults_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U fsv -d fee_split_vaults_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgres://fsv:ci-placeholder-not-a-secret@localhost:5432/fee_split_vaults_ci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --no-audit --fund=false
+      - run: npm install --no-save --no-audit --fund=false pg@8.13.1
+      - run: npx tsc --build ops/tsconfig.json
+
+      - name: checksums load offline
+        run: node ops/migrations/cli.js list
+
+      - name: apply
+        run: node ops/migrations/cli.js up
+
+      # `status` exits non-zero when anything is pending. After `up` it must be
+      # clean, and a second `up` must be a no-op - that is the forward-only,
+      # idempotent property the deploy relies on.
+      - name: status is clean
+        run: node ops/migrations/cli.js status
+      - name: re-running is a no-op
+        run: |
+          node ops/migrations/cli.js up | tee /tmp/second.txt
+          grep -q "0 applied now" /tmp/second.txt
+
+      # The scheduler is the process that has to come up in production against
+      # this exact schema. Prove both halves of its startup contract here.
+      - name: the scheduler starts against the migrated schema
+        run: |
+          set +e
+          OPS_ALLOW_FAKE_PORTS=1 OPS_TICK_SECONDS=2 timeout 25 node ops/scheduler/main.js > /tmp/sched.log 2>&1
+          cat /tmp/sched.log
+          grep -q '"event":"scheduler.started"' /tmp/sched.log || exit 1
+          grep -q '"event":"scheduler.tick"' /tmp/sched.log || exit 1
+
+      - name: the scheduler REFUSES to start when a migration is pending
+        run: |
+          psql "$DATABASE_URL" -c "DELETE FROM ops_migration WHERE version = (SELECT max(version) FROM ops_migration);"
+          set +e
+          OPS_ALLOW_FAKE_PORTS=1 timeout 25 node ops/scheduler/main.js > /tmp/refuse.log 2>&1
+          code=$?
+          cat /tmp/refuse.log
+          [ "$code" != "0" ] || { echo "expected a non-zero exit"; exit 1; }
+          grep -q 'pending migration' /tmp/refuse.log || exit 1
+
+      - name: and the pending migration re-applies cleanly
+        run: |
+          node ops/migrations/cli.js up
+          node ops/migrations/cli.js status
+
+  # ---------------------------------------------------------------------------
+  # One required check to protect the branch with.
+  # ---------------------------------------------------------------------------
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    needs:
+      - typecheck
+      - lint
+      - unit-tests
+      - contracts
+      - contract-invariants
+      - no-hardcoded-rates
+      - secret-scan
+      - migrations
+    if: always()
+    steps:
+      - name: fail if any required job did not succeed
+        run: |
+          echo "typecheck            ${{ needs.typecheck.result }}"
+          echo "lint                 ${{ needs.lint.result }}"
+          echo "unit-tests           ${{ needs.unit-tests.result }}"
+          echo "contracts            ${{ needs.contracts.result }}"
+          echo "contract-invariants  ${{ needs.contract-invariants.result }}"
+          echo "no-hardcoded-rates   ${{ needs.no-hardcoded-rates.result }}"
+          echo "secret-scan          ${{ needs.secret-scan.result }}"
+          echo "migrations           ${{ needs.migrations.result }}"
+          [ "${{ needs.typecheck.result }}" = "success" ] || exit 1
+          [ "${{ needs.lint.result }}" = "success" ] || exit 1
+          [ "${{ needs.unit-tests.result }}" = "success" ] || exit 1
+          [ "${{ needs.contracts.result }}" = "success" ] || exit 1
+          [ "${{ needs.contract-invariants.result }}" = "success" ] || exit 1
+          [ "${{ needs.no-hardcoded-rates.result }}" = "success" ] || exit 1
+          [ "${{ needs.secret-scan.result }}" = "success" ] || exit 1
+          [ "${{ needs.migrations.result }}" = "success" ] || exit 1

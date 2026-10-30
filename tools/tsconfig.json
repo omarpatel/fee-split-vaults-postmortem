@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    // tools/ is EXECUTED as TypeScript source and never built to dist, so its
+    // relative imports carry .ts extensions. That is what lets `node tools/x.ts`
+    // work with no loader, no bundler and no extra dependency - which matters
+    // for scripts whose whole job is to be run this week on a laptop.
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
+    "types": ["node"]
+  },
+  "include": ["**/*.ts", "../config/protocol.ts", "../config/dev-only.ts"]
+}

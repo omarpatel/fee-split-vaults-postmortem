@@ -1,0 +1,49 @@
+{
+  "name": "@fee-split-vaults/ops",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Operations plane: the recurring-job scheduler, alert definitions as code, runbooks, migrations and the CI gates.",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./migrations/*.sql": "./migrations/*.sql"
+  },
+  "files": [
+    "**/*.js",
+    "**/*.d.ts",
+    "migrations/*.sql",
+    "runbooks"
+  ],
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "typecheck": "tsc --build tsconfig.json --force && tsc -p tsconfig.test.json",
+    "test": "vitest run --config vitest.config.ts",
+    "ci:rates": "node ci/no-hardcoded-rates.js",
+    "ci:secrets": "node ci/secret-scan.js",
+    "ci:imports": "node ci/lint-imports.js",
+    "migrate": "node migrations/cli.js",
+    "status": "node scheduler/status.js",
+    "scheduler": "node scheduler/main.js",
+    "scheduler:local": "node scheduler/run-local.js"
+  },
+  "dependencies": {
+    "@fee-split-vaults/adapters": "*",
+    "@fee-split-vaults/broker": "*",
+    "@fee-split-vaults/core": "*",
+    "@fee-split-vaults/indexer": "*",
+    "@fee-split-vaults/ledger": "*",
+    "@fee-split-vaults/orchestrator": "*",
+    "@fee-split-vaults/publisher": "*",
+    "@fee-split-vaults/screening": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

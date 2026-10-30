@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["vite/client", "node"],
+    "jsx": "react-jsx",
+
+    // Vite transpiles; tsc is a typechecker here only. `composite` and `noEmit`
+    // are mutually exclusive, so the base project settings are turned off rather
+    // than inherited.
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "noEmit": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "vitest.config.ts"],
+
+  // Not a composite project (see above), but the dependency is real: this app
+  // imports config/protocol.ts. The reference makes `tsc --build apps/web`
+  // build config first instead of failing on a missing .d.ts.
+  "references": [{ "path": "../../config" }]
+}

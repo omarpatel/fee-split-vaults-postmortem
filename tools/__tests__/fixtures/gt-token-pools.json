@@ -1,0 +1,122 @@
+{
+  "_comment": "Token 0 across all dexes: the Venue pool is 2M of 244M observed, a 122x overstatement.",
+  "data": [
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00000",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00000",
+        "name": "TKN0 / WETH",
+        "pool_created_at": "2026-08-10T00:00:00.000Z",
+        "reserve_in_usd": "800000",
+        "volume_usd": {
+          "h24": "2000000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 100,
+            "sells": 90
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0000",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00384",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00384",
+        "name": "TKN900 / WETH",
+        "pool_created_at": "2026-08-10T00:00:00.000Z",
+        "reserve_in_usd": "48800000",
+        "volume_usd": {
+          "h24": "122000000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 1000,
+            "sells": 990
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0000",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "some-other-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00385",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00385",
+        "name": "TKN901 / WETH",
+        "pool_created_at": "2026-08-11T00:00:00.000Z",
+        "reserve_in_usd": "48000000",
+        "volume_usd": {
+          "h24": "120000000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 1001,
+            "sells": 991
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0000",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "yet-another-dex",
+            "type": "dex"
+          }
+        }
+      }
+    }
+  ]
+}

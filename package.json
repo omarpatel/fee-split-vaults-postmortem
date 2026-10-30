@@ -1,0 +1,42 @@
+{
+  "name": "fee-split-vaults",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Per-token creator-fee split vaults with Foundry invariant suites, plus the on-chain market measurement that said not to launch them.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "ops"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "typecheck": "tsc --build --force",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint . --ext .ts",
+    "contracts:build": "forge build --root contracts",
+    "contracts:test": "forge test --root contracts -vvv",
+    "contracts:invariant": "forge test --root contracts --match-path 'test/invariant/*' -vvv",
+    "typecheck:tests": "node tools/typecheck-tests.mjs",
+    "typecheck:web": "tsc --noEmit -p apps/web/tsconfig.json",
+    "bootstrap": "node tools/bootstrap-env.ts",
+    "dev": "node tools/dev.ts",
+    "fleet": "node tools/fleet.ts",
+    "preflight": "node tools/preflight.ts",
+    "operator": "node tools/operator.ts",
+    "start:api": "node --env-file-if-exists=.env.local apps/api/dist/main.js",
+    "status": "node ops/scheduler/status.js",
+    "clean": "node tools/clean.mjs",
+    "check": "node tools/check-coherence.mjs"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

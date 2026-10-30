@@ -1,0 +1,34 @@
+{
+  "name": "@fee-split-vaults/indexer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chain ingestion and QF measurement for chain 4663. Bounded watch set, hash-pinned two-provider quorum reads, per-coin fee attribution.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "typecheck": "tsc --build --force",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fee-split-vaults/core": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

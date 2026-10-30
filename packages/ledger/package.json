@@ -1,0 +1,25 @@
+{
+  "name": "@fee-split-vaults/ledger",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./schema.sql": "./src/store/schema.sql"
+  },
+  "files": [
+    "dist",
+    "src/store/schema.sql"
+  ],
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@fee-split-vaults/core": "*"
+  }
+}

@@ -1,0 +1,640 @@
+{
+ "source": "tools/artifacts/incumbent-capture.json",
+ "readAtIso": "2026-09-08T05:34:13.226Z",
+ "note": "Recorded slice of the live 2026-09-08 capture read: 125 T1 coins, each with its live creator-fee recipient class and its trailing-7-day median QF in USD/day. Trimmed to the three fields frontier.ts reads.",
+ "supportFloorUsd": 1000,
+ "tally": {
+  "EOA_7702": 4,
+  "CLONE_1167": 10,
+  "EOA": 66,
+  "INCUMBENT_DISTRIBUTOR": 37,
+  "OTHER_CONTRACT": 8
+ },
+ "rows": [
+  {
+   "coin": "0x29aaba06d1f60a52ce6aac658ceeecacb6dba7a1",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 3005.8902
+  },
+  {
+   "coin": "0x64f3882ee2886e2bb38579171428d4a58577d2aa",
+   "cls": "CLONE_1167",
+   "median7": 1106.2915
+  },
+  {
+   "coin": "0x4c75fae11ab4a1aa469863ca568e14d6a12890f1",
+   "cls": "OTHER_CONTRACT",
+   "median7": 9093.7531
+  },
+  {
+   "coin": "0x0f05ff34c573cd36994598c4446088b6f6f6b5e6",
+   "cls": "EOA",
+   "median7": 3314.0665
+  },
+  {
+   "coin": "0x9c54b46f45ad3c99d0a57bde27213e2e92acf027",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 6085.5468
+  },
+  {
+   "coin": "0x98ce8eef211686ecd95871001ce0ba11ae2aa6d0",
+   "cls": "CLONE_1167",
+   "median7": 2068.5223
+  },
+  {
+   "coin": "0x1abf7f960efa5e774493ea168abe76d32ab7ac06",
+   "cls": "EOA",
+   "median7": 6432.5858
+  },
+  {
+   "coin": "0x922cfc76fc75f09d78c5a5bcaaa2b69c9e10314f",
+   "cls": "EOA",
+   "median7": 20382.7961
+  },
+  {
+   "coin": "0x6e929886ccbae6efc7b1b58a0d86df13bbe1918b",
+   "cls": "EOA",
+   "median7": 38980.017
+  },
+  {
+   "coin": "0x4a2fbf907b002209c0e32dbf5979440b5eb2c3c5",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 6454.6929
+  },
+  {
+   "coin": "0xb42f1a34fc2552b898a105dc80d06ff908cabdee",
+   "cls": "EOA",
+   "median7": 1116.5624
+  },
+  {
+   "coin": "0x9201054b66f71317abbe0dede11a74f869ffb543",
+   "cls": "EOA",
+   "median7": 1137.4255
+  },
+  {
+   "coin": "0x8def9784141401222a25f11c96094af0e4af6a50",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 7059.4046
+  },
+  {
+   "coin": "0x01ac55707121861aa5aaac0aed0ab7585055973c",
+   "cls": "EOA",
+   "median7": 2060.5266
+  },
+  {
+   "coin": "0x6a29c50fe05f3e8eb0de620964aab0f778d56505",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 6366.8333
+  },
+  {
+   "coin": "0xfbc0b9d75ea4875ee014819faa1ea9da85a347f6",
+   "cls": "EOA",
+   "median7": 1192.9781
+  },
+  {
+   "coin": "0xad836f2e151076b954c0106ee0947861bacd6e43",
+   "cls": "EOA",
+   "median7": 4653.3102
+  },
+  {
+   "coin": "0x6d25019602713289c9f50bcb7bb8c0ec16b94f8a",
+   "cls": "EOA",
+   "median7": 2913.6
+  },
+  {
+   "coin": "0x3fb8169582102049a02e62fbe381d363ee84b48e",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 3503.7543
+  },
+  {
+   "coin": "0x98b1862b65ce73ca42a1338ac9c0fd541ea2d189",
+   "cls": "EOA",
+   "median7": 5265.3242
+  },
+  {
+   "coin": "0x2b7866df0efa5639c2786dff32730878d76a5b28",
+   "cls": "EOA",
+   "median7": 2064.9241
+  },
+  {
+   "coin": "0xd6cc2ee176568c6bb81394d38bdb840d5abf77e8",
+   "cls": "EOA",
+   "median7": 15381.3519
+  },
+  {
+   "coin": "0xf41125b482dcc9de0240a09668b4407662a3a6ba",
+   "cls": "EOA",
+   "median7": 3159.7636
+  },
+  {
+   "coin": "0xf9b69771743cc8f77a10935d4e9077affcff2e43",
+   "cls": "EOA",
+   "median7": 6113.1141
+  },
+  {
+   "coin": "0xb794476c763a2698c88cd6fd635b5616c9d2df95",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1296.2528
+  },
+  {
+   "coin": "0x6a70a7094a60dede7d098799d0cf4cdbb6047cc6",
+   "cls": "EOA",
+   "median7": 5164.1258
+  },
+  {
+   "coin": "0xc05ef998e8c7904626be70b915f4deb4eeb3673c",
+   "cls": "EOA",
+   "median7": 4306.4529
+  },
+  {
+   "coin": "0xd6909927641642054a0a3719d81fe048d478d877",
+   "cls": "EOA",
+   "median7": 6420.266
+  },
+  {
+   "coin": "0xc565bd37086947111527402bf1906866bba9fced",
+   "cls": "EOA_7702",
+   "median7": 1764.9238
+  },
+  {
+   "coin": "0x9d4a443609d0b4f49be20d93251b40f56760bf02",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 7383.0238
+  },
+  {
+   "coin": "0x62094d106848b25a72b640858ab3392725f076a8",
+   "cls": "EOA",
+   "median7": 1295.3112
+  },
+  {
+   "coin": "0x048121743f39225d329418f579c8ad7a6ec957d3",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 3791.4988
+  },
+  {
+   "coin": "0x5208ea5bc5d0e1b1f6e3380782a2d0caa0c42947",
+   "cls": "EOA",
+   "median7": 1469.5969
+  },
+  {
+   "coin": "0xaab8fe780af822cd8e6e75076521bc770cdded79",
+   "cls": "EOA",
+   "median7": 1523.7025
+  },
+  {
+   "coin": "0xf11ef8bc6755b59490e6eebecaf6b6248484fee5",
+   "cls": "OTHER_CONTRACT",
+   "median7": 20533.9126
+  },
+  {
+   "coin": "0x92aed1108a36dddd37c36705ad87e8f8a525a9f5",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 2119.5001
+  },
+  {
+   "coin": "0xe25ebd9d7cb1a6c8307433c7100ec6bed0595db3",
+   "cls": "EOA",
+   "median7": 1058.6443
+  },
+  {
+   "coin": "0xc0f50f3a69c2c6502a210bcbe6140f644b1ac5e0",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1740.464
+  },
+  {
+   "coin": "0x74bb5e2e9a473ad63d5af622aca2c1547bd1a268",
+   "cls": "OTHER_CONTRACT",
+   "median7": 4105.644
+  },
+  {
+   "coin": "0x8b6f7bea4d4ba088687c8af901822a24e62c7341",
+   "cls": "EOA",
+   "median7": 1040.6547
+  },
+  {
+   "coin": "0x35e8d155d25a30cb3d26729e366aace28ece0e49",
+   "cls": "EOA",
+   "median7": 2559.098
+  },
+  {
+   "coin": "0x767d56c74d762b9a317f5eef46653397031830b1",
+   "cls": "EOA_7702",
+   "median7": 4834.1748
+  },
+  {
+   "coin": "0x6e643ac85bfa4f7dfc4bd7106aa4728ad0151703",
+   "cls": "CLONE_1167",
+   "median7": 4813.0726
+  },
+  {
+   "coin": "0x3988514da359c257b4615a603e0d7dd1bca20f50",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 4784.5124
+  },
+  {
+   "coin": "0xecfd23b7c161abb9dfeb0f9efc7d3dd009d8da53",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 5138.8078
+  },
+  {
+   "coin": "0xcc07ee1f573e319b7493854b32761888117d24bf",
+   "cls": "OTHER_CONTRACT",
+   "median7": 3916.7135
+  },
+  {
+   "coin": "0x384a5cae2d284b5f1c951258a4e00cb7c95319d5",
+   "cls": "EOA",
+   "median7": 1508.9661
+  },
+  {
+   "coin": "0x6f96e7f94a6c0943b0ac8c8fdae4db810fc63196",
+   "cls": "OTHER_CONTRACT",
+   "median7": 2473.6679
+  },
+  {
+   "coin": "0xf65e4273e071ee5ed5ca50ed2ffb265b4ae4b99b",
+   "cls": "EOA",
+   "median7": 3120.2628
+  },
+  {
+   "coin": "0xdf6488f40e0e6a019529ddf34a34914022b0d2b1",
+   "cls": "EOA",
+   "median7": 3421.8193
+  },
+  {
+   "coin": "0x46c40969b952a1ca6cce488a79bd98b39bc69705",
+   "cls": "EOA",
+   "median7": 3074.0462
+  },
+  {
+   "coin": "0xd3d1bc710f80df256d2b279711996c1e94ff7530",
+   "cls": "OTHER_CONTRACT",
+   "median7": 2226.9883
+  },
+  {
+   "coin": "0x34308a8dededc7cb9052d9fa22f17118c6690d87",
+   "cls": "EOA",
+   "median7": 24459.2731
+  },
+  {
+   "coin": "0xf4755bb1b46685000504945d0666570d4dd7ebf0",
+   "cls": "EOA",
+   "median7": 1624.8526
+  },
+  {
+   "coin": "0x01922ab9a92744304facbea02af793fbd0b37962",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1197.9852
+  },
+  {
+   "coin": "0xd457b41ed6b19fc5b7a2552466422255851b4ee0",
+   "cls": "EOA",
+   "median7": 1220.9027
+  },
+  {
+   "coin": "0x2be86e26322e7967187ecd87d1d7c08f9af5886f",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 2688.4359
+  },
+  {
+   "coin": "0xf7bb035eabec786fc90f696433247b421ea1d401",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1821.9485
+  },
+  {
+   "coin": "0x1fed5f6a49c435639259a80095ccd4a09d3090b7",
+   "cls": "EOA",
+   "median7": 3010.7094
+  },
+  {
+   "coin": "0x43dbdbbe3068beb706888e1c243bc9e59f411e98",
+   "cls": "EOA",
+   "median7": 2370.4729
+  },
+  {
+   "coin": "0x764bfd9529f1808b22a57f411d4efa63003d3e20",
+   "cls": "EOA",
+   "median7": 3042.6423
+  },
+  {
+   "coin": "0x13c09d8c0b8c4692b1b6e50316391853b7b04886",
+   "cls": "EOA",
+   "median7": 1169.6021
+  },
+  {
+   "coin": "0xcf180f360c52053d4d8e2cd6df422ab90a88d296",
+   "cls": "CLONE_1167",
+   "median7": 3231.669
+  },
+  {
+   "coin": "0x2da4c98fafab56319420aee192bf7d47fc7f1cf8",
+   "cls": "EOA",
+   "median7": 5198.3426
+  },
+  {
+   "coin": "0x11f16622dc8800624d598318ae0fa4cbcc2ed85b",
+   "cls": "EOA_7702",
+   "median7": 1047.0955
+  },
+  {
+   "coin": "0x94861c5f4d84a86687655937bee941ae65f30d3e",
+   "cls": "EOA",
+   "median7": 3154.2742
+  },
+  {
+   "coin": "0xce033a43844a2dc7bc2b5ed49137f3f3f6101f34",
+   "cls": "EOA",
+   "median7": 2980.6378
+  },
+  {
+   "coin": "0xf95323f653f5eac4162dba738ef5aa34bb693160",
+   "cls": "CLONE_1167",
+   "median7": 3717.5867
+  },
+  {
+   "coin": "0xc2e1c3328a98fa0b32d7458414c0978a2dd352eb",
+   "cls": "EOA",
+   "median7": 1092.1232
+  },
+  {
+   "coin": "0xdc3e6049f904cb6686ab97139a69be12a684b21b",
+   "cls": "OTHER_CONTRACT",
+   "median7": 1503.9151
+  },
+  {
+   "coin": "0x2c10ffd1d331e95e2360651cc588a6d883365d65",
+   "cls": "EOA",
+   "median7": 15657.5413
+  },
+  {
+   "coin": "0x61be30b32bd7c0d0f46f5a518b66f853e1ca6726",
+   "cls": "EOA",
+   "median7": 6299.7229
+  },
+  {
+   "coin": "0x93efa0de50fad75ea1221346f972f83d5b953b77",
+   "cls": "EOA",
+   "median7": 4326.7236
+  },
+  {
+   "coin": "0x3358486bbe9eb924e754650b4afa69abafbf2fc2",
+   "cls": "CLONE_1167",
+   "median7": 1389.18
+  },
+  {
+   "coin": "0xf41cd6e179926f11ef652ac2ab3b0d5131ba3bc5",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1258.1573
+  },
+  {
+   "coin": "0xc989924247d55f4687b073d666e7db293a544993",
+   "cls": "EOA",
+   "median7": 16788.6176
+  },
+  {
+   "coin": "0x85d65e9e521e414c99a3c815a8dca98c12361e9a",
+   "cls": "EOA",
+   "median7": 1494.2984
+  },
+  {
+   "coin": "0xdd6764407129ce7188bd14cd1443045d149e8035",
+   "cls": "EOA",
+   "median7": 1493.7446
+  },
+  {
+   "coin": "0xa1bcf1bc46c45f590b0ad84b502efa869ae431e0",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1452.1407
+  },
+  {
+   "coin": "0x694fbee190b5d81b794c8d28f00c65b6982f066d",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 82654.4811
+  },
+  {
+   "coin": "0x7d29ff9daf62665dc894becaa74edb484490c1ee",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 3374.3672
+  },
+  {
+   "coin": "0x23174e855b9be28ba60b91f229701b6f59963aa5",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 2692.7004
+  },
+  {
+   "coin": "0x215c2e035c6513d68273e0ad62a8436e2edbbd1b",
+   "cls": "CLONE_1167",
+   "median7": 1550.9523
+  },
+  {
+   "coin": "0xd9212b11ac89ca96662b6d28b6f6dca46dbb7850",
+   "cls": "EOA",
+   "median7": 1605.1954
+  },
+  {
+   "coin": "0xf006db4c9fc3ab24adaf820536531ef050f2cf8d",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 4202.611
+  },
+  {
+   "coin": "0x0832a5212a360c252202971db61fb2c58fc7247a",
+   "cls": "EOA",
+   "median7": 2399.8924
+  },
+  {
+   "coin": "0x8d49aa08340c815aafd10f91c62dca88857c31e3",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 4236.1669
+  },
+  {
+   "coin": "0x8ce5bcd3c5534c3ab475ccee5a5947691a11a3f0",
+   "cls": "EOA",
+   "median7": 1208.6329
+  },
+  {
+   "coin": "0x8ddd0f4453b87220101777fae2bcb955ce56f6c9",
+   "cls": "EOA",
+   "median7": 1231.4842
+  },
+  {
+   "coin": "0x05fd915749928b73d96bf57e67957aacdbb06cbd",
+   "cls": "EOA",
+   "median7": 19549.6935
+  },
+  {
+   "coin": "0x888e6d7f03de4a82652d9043c36c0a9ec0e56fa7",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1101.3744
+  },
+  {
+   "coin": "0xcf580173aa241b888fd42d58838931798614d43c",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 2540.9024
+  },
+  {
+   "coin": "0xb3d93943dcd4f9f56b1b029f478bd47459440a95",
+   "cls": "CLONE_1167",
+   "median7": 2873.2299
+  },
+  {
+   "coin": "0x2a79394c0830a7bdf6b8bc938aa5d44532eae85f",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1118.1035
+  },
+  {
+   "coin": "0xed24ee5684389c1c04df2e6f784d42b08f7dd092",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1249.9542
+  },
+  {
+   "coin": "0x84ab7c04f9d24a2b506729cdc16601967b3f1fd2",
+   "cls": "EOA",
+   "median7": 2430.799
+  },
+  {
+   "coin": "0xe1a869af61edf7bc77ac20c09332d2c4a25ecb2f",
+   "cls": "EOA",
+   "median7": 1624.9602
+  },
+  {
+   "coin": "0x92c91e261b3249f7b11ec5ac3d3588036cc8ea17",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 13133.0653
+  },
+  {
+   "coin": "0x78c7460a03da9c848f7f0942b57f5720eb3b6dcf",
+   "cls": "EOA",
+   "median7": 10771.8158
+  },
+  {
+   "coin": "0x6297c4f80500a281f71dec659604ede08ab2a7ae",
+   "cls": "EOA",
+   "median7": 6086.8217
+  },
+  {
+   "coin": "0x6c3cacc631cb17b15c0d13ced362a6de52e572f9",
+   "cls": "EOA",
+   "median7": 2069.3893
+  },
+  {
+   "coin": "0xe237e721890201566dbb0ccfb867b13c47f092f3",
+   "cls": "EOA",
+   "median7": 4287.5744
+  },
+  {
+   "coin": "0x841056303d8e50bc439ebe1462306878b3f8fe48",
+   "cls": "EOA",
+   "median7": 1520.383
+  },
+  {
+   "coin": "0xb453817ad407dc09ff72577c6949e1fd492aa131",
+   "cls": "EOA",
+   "median7": 1951.7566
+  },
+  {
+   "coin": "0x2e3e069500e2a7891bd363fec7739a794c2dbfa0",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 18601.7998
+  },
+  {
+   "coin": "0x695047788e968298bc6155311f2eb0e9eef20853",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1931.7258
+  },
+  {
+   "coin": "0x98f31160b2a4ea583a7b92badba945deba6946bd",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 2359.9653
+  },
+  {
+   "coin": "0xee3220c519f1afac6886002dee3149513649c327",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 29460.0684
+  },
+  {
+   "coin": "0x5f2648871d5d8d20fd185433006bcf7bd5985204",
+   "cls": "EOA",
+   "median7": 2762.1793
+  },
+  {
+   "coin": "0xab63ddd6886f5f7f36f6a2a0c2380c1b120a4c1f",
+   "cls": "EOA_7702",
+   "median7": 1763.9701
+  },
+  {
+   "coin": "0x227abde24661ba3b4908922c2ea40074fbf62081",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1695.2566
+  },
+  {
+   "coin": "0xfde6d7f6d87293791597f92bbfea31c5cbe5161c",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1121.4091
+  },
+  {
+   "coin": "0x93b010225b611059d69510f36511fccb0804026c",
+   "cls": "EOA",
+   "median7": 3695.3991
+  },
+  {
+   "coin": "0x9d14e1fee747fef4e0edbd0ed5fe0c03ef1f7802",
+   "cls": "EOA",
+   "median7": 3740.0327
+  },
+  {
+   "coin": "0xd1ce407b45bd8b2bf0c5a8ff62745e09a245e900",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 1391.9509
+  },
+  {
+   "coin": "0xffc6aa197f1f479db810a4ddc79fe3293192e691",
+   "cls": "EOA",
+   "median7": 2570.1444
+  },
+  {
+   "coin": "0x1306b4fd1ffb076bfd8bf4e4d1f8f615cef9fcd5",
+   "cls": "EOA",
+   "median7": 8039.2061
+  },
+  {
+   "coin": "0xeac36afe830052eeb512f525ef0e11ce687d6771",
+   "cls": "OTHER_CONTRACT",
+   "median7": 9099.0388
+  },
+  {
+   "coin": "0x32a7f0907bca30c3d94ed9a121d2d053a3284721",
+   "cls": "EOA",
+   "median7": 1109.6691
+  },
+  {
+   "coin": "0xd2d706197684a9c17dd995d12d6533035eb87c0b",
+   "cls": "CLONE_1167",
+   "median7": 7572.6464
+  },
+  {
+   "coin": "0x53c4f3196a0120dc4386f7b9ddd3bcbdb0b4efa2",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 2300.1709
+  },
+  {
+   "coin": "0x07810d09314003f741a7f22ebc25c3ddb97b315f",
+   "cls": "EOA",
+   "median7": 8045.168
+  },
+  {
+   "coin": "0x1e1641eebd5e64cf50409b0de4fa2c49eac8a15b",
+   "cls": "INCUMBENT_DISTRIBUTOR",
+   "median7": 2837.9332
+  },
+  {
+   "coin": "0x98d4b87152dea483c4253931051f45f9a4af80ad",
+   "cls": "CLONE_1167",
+   "median7": 2255.8151
+  },
+  {
+   "coin": "0xc2e92aa8e42fdcfb6705265192ebf88064a59952",
+   "cls": "EOA",
+   "median7": 2652.9783
+  }
+ ]
+}

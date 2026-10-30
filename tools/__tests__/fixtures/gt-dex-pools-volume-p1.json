@@ -1,0 +1,784 @@
+{
+  "data": [
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00000",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00000",
+        "name": "TKN0 / WETH",
+        "pool_created_at": "2026-08-10T00:00:00.000Z",
+        "reserve_in_usd": "800000",
+        "volume_usd": {
+          "h24": "2000000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 100,
+            "sells": 90
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0000",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00001",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00001",
+        "name": "TKN1 / WETH",
+        "pool_created_at": "2026-08-11T00:00:00.000Z",
+        "reserve_in_usd": "764000",
+        "volume_usd": {
+          "h24": "1910000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 101,
+            "sells": 91
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0001",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00002",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00002",
+        "name": "TKN2 / WETH",
+        "pool_created_at": "2026-08-12T00:00:00.000Z",
+        "reserve_in_usd": "728000",
+        "volume_usd": {
+          "h24": "1820000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 102,
+            "sells": 92
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0002",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00003",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00003",
+        "name": "TKN3 / WETH",
+        "pool_created_at": "2026-08-13T00:00:00.000Z",
+        "reserve_in_usd": "692000",
+        "volume_usd": {
+          "h24": "1730000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 103,
+            "sells": 93
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0003",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00004",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00004",
+        "name": "TKN4 / WETH",
+        "pool_created_at": "2026-08-14T00:00:00.000Z",
+        "reserve_in_usd": "656000",
+        "volume_usd": {
+          "h24": "1640000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 104,
+            "sells": 94
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0004",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00005",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00005",
+        "name": "TKN5 / WETH",
+        "pool_created_at": "2026-08-15T00:00:00.000Z",
+        "reserve_in_usd": "620000",
+        "volume_usd": {
+          "h24": "1550000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 105,
+            "sells": 95
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0005",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00006",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00006",
+        "name": "TKN6 / WETH",
+        "pool_created_at": "2026-08-16T00:00:00.000Z",
+        "reserve_in_usd": "584000",
+        "volume_usd": {
+          "h24": "1460000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 106,
+            "sells": 96
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0006",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00007",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00007",
+        "name": "TKN7 / WETH",
+        "pool_created_at": "2026-08-17T00:00:00.000Z",
+        "reserve_in_usd": "548000",
+        "volume_usd": {
+          "h24": "1370000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 107,
+            "sells": 97
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0007",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00008",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00008",
+        "name": "TKN8 / WETH",
+        "pool_created_at": "2026-08-18T00:00:00.000Z",
+        "reserve_in_usd": "512000",
+        "volume_usd": {
+          "h24": "1280000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 108,
+            "sells": 98
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0008",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00009",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00009",
+        "name": "TKN9 / WETH",
+        "pool_created_at": "2026-08-19T00:00:00.000Z",
+        "reserve_in_usd": "476000",
+        "volume_usd": {
+          "h24": "1190000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 109,
+            "sells": 99
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0009",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a0000a",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a0000a",
+        "name": "TKN10 / WETH",
+        "pool_created_at": "2026-08-20T00:00:00.000Z",
+        "reserve_in_usd": "440000",
+        "volume_usd": {
+          "h24": "1100000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 110,
+            "sells": 100
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee000a",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a0000b",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a0000b",
+        "name": "TKN11 / WETH",
+        "pool_created_at": "2026-08-21T00:00:00.000Z",
+        "reserve_in_usd": "404000",
+        "volume_usd": {
+          "h24": "1010000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 111,
+            "sells": 101
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee000b",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a0000c",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a0000c",
+        "name": "TKN12 / WETH",
+        "pool_created_at": "2026-08-22T00:00:00.000Z",
+        "reserve_in_usd": "368000",
+        "volume_usd": {
+          "h24": "920000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 112,
+            "sells": 102
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee000c",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a0000d",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a0000d",
+        "name": "TKN13 / WETH",
+        "pool_created_at": "2026-08-23T00:00:00.000Z",
+        "reserve_in_usd": "332000",
+        "volume_usd": {
+          "h24": "830000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 113,
+            "sells": 103
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee000d",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a0000e",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a0000e",
+        "name": "TKN14 / WETH",
+        "pool_created_at": "2026-08-24T00:00:00.000Z",
+        "reserve_in_usd": "296000",
+        "volume_usd": {
+          "h24": "740000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 114,
+            "sells": 104
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee000e",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a0000f",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a0000f",
+        "name": "TKN15 / WETH",
+        "pool_created_at": "2026-08-25T00:00:00.000Z",
+        "reserve_in_usd": "260000",
+        "volume_usd": {
+          "h24": "650000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 115,
+            "sells": 105
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee000f",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00010",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00010",
+        "name": "TKN16 / WETH",
+        "pool_created_at": "2026-08-26T00:00:00.000Z",
+        "reserve_in_usd": "224000",
+        "volume_usd": {
+          "h24": "560000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 116,
+            "sells": 106
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0010",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00011",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00011",
+        "name": "TKN17 / WETH",
+        "pool_created_at": "2026-08-27T00:00:00.000Z",
+        "reserve_in_usd": "188000",
+        "volume_usd": {
+          "h24": "470000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 117,
+            "sells": 107
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0011",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00012",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00012",
+        "name": "TKN18 / WETH",
+        "pool_created_at": "2026-08-28T00:00:00.000Z",
+        "reserve_in_usd": "152000",
+        "volume_usd": {
+          "h24": "380000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 118,
+            "sells": 108
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0012",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    },
+    {
+      "id": "robinhood_0x0000000000000000000000000000000000a00013",
+      "type": "pool",
+      "attributes": {
+        "address": "0x0000000000000000000000000000000000a00013",
+        "name": "TKN19 / WETH",
+        "pool_created_at": "2026-08-29T00:00:00.000Z",
+        "reserve_in_usd": "116000",
+        "volume_usd": {
+          "h24": "290000"
+        },
+        "transactions": {
+          "h24": {
+            "buys": 119,
+            "sells": 109
+          }
+        }
+      },
+      "relationships": {
+        "base_token": {
+          "data": {
+            "id": "robinhood_0x000000000000000000000000000000c0ffee0013",
+            "type": "token"
+          }
+        },
+        "quote_token": {
+          "data": {
+            "id": "robinhood_0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+            "type": "token"
+          }
+        },
+        "dex": {
+          "data": {
+            "id": "venue-v2-dex",
+            "type": "dex"
+          }
+        }
+      }
+    }
+  ]
+}

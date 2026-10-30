@@ -1,0 +1,562 @@
+{
+  "schemaVersion": 1,
+  "note": "The catalog. Two price books and nothing else: pass-through third-party goods charged at COST with exactly zero markup and reconciled daily against an archived vendor rate card, and operator services billed at a published, coin-independent unit rate. The SKU's CATEGORY decides which book it is in (see packages/catalog/src/pricebook.ts), so a media buy cannot be filed as a service with margin inside it. Every price carries its source and the date it was observed. availableAtTiers is CHECKED against what each tier's procurement budget can actually fund; a SKU offered at a tier that cannot pay for it refuses to load.",
+  "skus": [
+    {
+      "id": "dexscreener_eti",
+      "vendorId": "dexscreener",
+      "description": "Dexscreener Enhanced Token Info: verified socials, description and logo attached to the token's pair record. One-time.",
+      "unitCostUsd": 299,
+      "category": "listing",
+      "pricing": "third_party_pass_through",
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "enabled": true,
+      "maxQuantity": 1,
+      "minViableQuantity": 1,
+      "observedDeliveries": 0,
+      "rateCardRef": {
+        "vendorId": "dexscreener",
+        "sourceHash": "bfbc13e5eaaa11bd775e519b8c7911c0f96ce79feea07e5f0804e101d1d04eae"
+      },
+      "priceProvenance": {
+        "kind": "vendor_public_pricing",
+        "sourceUri": "https://marketplace.dexscreener.com/",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 604800,
+        "note": "Publicly listed one-time price. This is the cheapest deliverable in the catalog and the reason QUALIFICATION_FLOOR_MONTHLY_USD exists: below that much monthly PROCUREMENT BUDGET - the dial's slice, not the coin's whole fee flow - a paid tier cannot fund even this, so it is not offered. The figure lives in config/protocol.ts and is deliberately not repeated here."
+      },
+      "predicate": {
+        "kind": "eti_listing",
+        "verifyAtOffsetsSeconds": [
+          3600,
+          86400,
+          604800
+        ],
+        "params": {
+          "chain": "4663",
+          "pairSource": "dexscreener_pairs_api",
+          "expectFieldPresent": "info",
+          "minSocialsPresent": 1
+        }
+      }
+    },
+    {
+      "id": "dexscreener_boost_10",
+      "vendorId": "dexscreener",
+      "description": "Dexscreener boost pack, 10 boosts. Raises the pair's boost score for a period measured in hours, not days.",
+      "unitCostUsd": 99,
+      "category": "boost",
+      "pricing": "third_party_pass_through",
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "enabled": true,
+      "maxQuantity": 4,
+      "minViableQuantity": 1,
+      "observedDeliveries": 0,
+      "rateCardRef": {
+        "vendorId": "dexscreener",
+        "sourceHash": "bfbc13e5eaaa11bd775e519b8c7911c0f96ce79feea07e5f0804e101d1d04eae"
+      },
+      "priceProvenance": {
+        "kind": "vendor_public_pricing",
+        "sourceUri": "https://marketplace.dexscreener.com/",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 604800,
+        "note": "Entry pack in the published 99-3999 USD boost range."
+      },
+      "predicate": {
+        "kind": "boost_delta",
+        "verifyAtOffsetsSeconds": [
+          0,
+          900,
+          3600,
+          10800,
+          21600,
+          43200
+        ],
+        "params": {
+          "expectedBoostDelta": 10,
+          "rankSnapshotCount": 6,
+          "effectWindowSeconds": 43200
+        }
+      }
+    },
+    {
+      "id": "dexscreener_boost_30",
+      "vendorId": "dexscreener",
+      "description": "Dexscreener boost pack, 30 boosts.",
+      "unitCostUsd": 299,
+      "category": "boost",
+      "pricing": "third_party_pass_through",
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "enabled": true,
+      "maxQuantity": 4,
+      "minViableQuantity": 1,
+      "observedDeliveries": 0,
+      "rateCardRef": {
+        "vendorId": "dexscreener",
+        "sourceHash": "bfbc13e5eaaa11bd775e519b8c7911c0f96ce79feea07e5f0804e101d1d04eae"
+      },
+      "priceProvenance": {
+        "kind": "vendor_public_pricing",
+        "sourceUri": "https://marketplace.dexscreener.com/",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 604800
+      },
+      "predicate": {
+        "kind": "boost_delta",
+        "verifyAtOffsetsSeconds": [
+          0,
+          900,
+          3600,
+          10800,
+          21600,
+          43200
+        ],
+        "params": {
+          "expectedBoostDelta": 30,
+          "rankSnapshotCount": 6,
+          "effectWindowSeconds": 43200
+        }
+      }
+    },
+    {
+      "id": "dexscreener_boost_100",
+      "vendorId": "dexscreener",
+      "description": "Dexscreener boost pack, 100 boosts.",
+      "unitCostUsd": 899,
+      "category": "boost",
+      "pricing": "third_party_pass_through",
+      "availableAtTiers": [
+        "T2",
+        "T3"
+      ],
+      "enabled": true,
+      "maxQuantity": 4,
+      "minViableQuantity": 1,
+      "observedDeliveries": 0,
+      "rateCardRef": {
+        "vendorId": "dexscreener",
+        "sourceHash": "bfbc13e5eaaa11bd775e519b8c7911c0f96ce79feea07e5f0804e101d1d04eae"
+      },
+      "priceProvenance": {
+        "kind": "vendor_public_pricing",
+        "sourceUri": "https://marketplace.dexscreener.com/",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 604800,
+        "note": "Held at T2+ by choice, not by arithmetic. When the T1 gate was 250 USD/day this pack was unaffordable at T1 - 899 USD against a 750 USD half-month ceiling. Since the gate moved to 1000 USD/day a T1 coin's ceiling is 3000 USD and this pack fits, so the tiers listed here are now an editorial call about whether a coin at the bottom of the paid ladder should be sold 100 boosts. assertTierAvailability only refuses a SKU offered where it CANNOT be funded, so declaring fewer tiers than are affordable is permitted and will not fail the loader."
+      },
+      "predicate": {
+        "kind": "boost_delta",
+        "verifyAtOffsetsSeconds": [
+          0,
+          900,
+          3600,
+          10800,
+          21600,
+          43200
+        ],
+        "params": {
+          "expectedBoostDelta": 100,
+          "rankSnapshotCount": 8,
+          "effectWindowSeconds": 43200
+        }
+      }
+    },
+    {
+      "id": "dexscreener_boost_500",
+      "vendorId": "dexscreener",
+      "description": "Dexscreener boost pack, 500 boosts.",
+      "unitCostUsd": 3999,
+      "category": "boost",
+      "pricing": "third_party_pass_through",
+      "availableAtTiers": [
+        "T2",
+        "T3"
+      ],
+      "enabled": true,
+      "maxQuantity": 2,
+      "minViableQuantity": 1,
+      "observedDeliveries": 0,
+      "rateCardRef": {
+        "vendorId": "dexscreener",
+        "sourceHash": "bfbc13e5eaaa11bd775e519b8c7911c0f96ce79feea07e5f0804e101d1d04eae"
+      },
+      "priceProvenance": {
+        "kind": "vendor_public_pricing",
+        "sourceUri": "https://marketplace.dexscreener.com/",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 604800,
+        "note": "Top of the published 99-3999 USD boost range."
+      },
+      "predicate": {
+        "kind": "boost_delta",
+        "verifyAtOffsetsSeconds": [
+          0,
+          900,
+          3600,
+          10800,
+          21600,
+          43200
+        ],
+        "params": {
+          "expectedBoostDelta": 500,
+          "rankSnapshotCount": 10,
+          "effectWindowSeconds": 43200
+        }
+      }
+    },
+    {
+      "id": "dextools_trending_24h",
+      "vendorId": "dextools",
+      "description": "DEXTools trending slot, priced per day. Quoted per campaign; the figure here is an indicative band midpoint and is not a purchasable price.",
+      "unitCostUsd": 3000,
+      "category": "trending",
+      "pricing": "third_party_pass_through",
+      "availableAtTiers": [
+        "T3"
+      ],
+      "enabled": false,
+      "disabledReason": "INDICATIVE BAND, NOT A QUOTE. Trending is quoted per campaign in the low thousands of USD per day. No countersigned quote has been archived as a rate card, so there is no price to charge at cost and nothing to reconcile against. Archive a countersigned quote for vendor dextools, re-seal, and re-approve before enabling.",
+      "maxQuantity": 14,
+      "minViableQuantity": 3,
+      "observedDeliveries": 0,
+      "priceProvenance": {
+        "kind": "vendor_countersigned_quote",
+        "sourceUri": "operator-archive://quotes/dextools/trending-24h",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 2592000,
+        "note": "Band midpoint recorded on 2026-09-06 from the publicly stated range of several thousand USD per day. A band is not a list price and cannot be charged at cost, which is why this SKU ships disabled and carries no rateCardRef."
+      },
+      "predicate": {
+        "kind": "trending_rank",
+        "verifyAtOffsetsSeconds": [
+          0,
+          3600,
+          7200,
+          14400,
+          21600,
+          32400,
+          43200,
+          54000,
+          64800,
+          75600,
+          82800,
+          86400
+        ],
+        "params": {
+          "requiredRankMax": 30,
+          "minChecks": 12,
+          "jitterSeconds": 1500,
+          "clawback": "pro_rata",
+          "randomized": 1
+        }
+      }
+    },
+    {
+      "id": "kol_mid_a_post",
+      "vendorId": "kol_mid_a",
+      "description": "One sponsored post from mid-tier KOL roster slot A, with the paid-promotion disclosure literal in the post body.",
+      "unitCostUsd": 500,
+      "category": "kol",
+      "pricing": "third_party_pass_through",
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "enabled": false,
+      "disabledReason": "Roster slot unfilled. The vendor has no KYB record and no OFAC screen, and no countersigned quote has been archived, so there is no price to charge at cost. Bottom of the observed 500-5000 USD mid-tier band.",
+      "maxQuantity": 2,
+      "minViableQuantity": 1,
+      "observedDeliveries": 0,
+      "priceProvenance": {
+        "kind": "vendor_countersigned_quote",
+        "sourceUri": "operator-archive://quotes/kol_mid_a/post",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 2592000,
+        "note": "Band floor recorded 2026-09-06 from the 500-5000 USD mid-tier range. Indicative only; the archived countersigned quote sets the actual price."
+      },
+      "predicate": {
+        "kind": "kol_post",
+        "verifyAtOffsetsSeconds": [
+          3600,
+          86400,
+          604800
+        ],
+        "params": {
+          "requireHandleMatch": 1,
+          "requireDisclosureLiteral": "#ad",
+          "requireStillLive": 1
+        }
+      }
+    },
+    {
+      "id": "kol_mid_b_post",
+      "vendorId": "kol_mid_b",
+      "description": "One sponsored post from mid-tier KOL roster slot B, with the paid-promotion disclosure literal in the post body.",
+      "unitCostUsd": 1500,
+      "category": "kol",
+      "pricing": "third_party_pass_through",
+      "availableAtTiers": [
+        "T2",
+        "T3"
+      ],
+      "enabled": false,
+      "disabledReason": "Roster slot unfilled; no KYB record, no OFAC screen, no countersigned quote. Mid-band of the observed 500-5000 USD range.",
+      "maxQuantity": 2,
+      "minViableQuantity": 1,
+      "observedDeliveries": 0,
+      "priceProvenance": {
+        "kind": "vendor_countersigned_quote",
+        "sourceUri": "operator-archive://quotes/kol_mid_b/post",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 2592000
+      },
+      "predicate": {
+        "kind": "kol_post",
+        "verifyAtOffsetsSeconds": [
+          3600,
+          86400,
+          604800
+        ],
+        "params": {
+          "requireHandleMatch": 1,
+          "requireDisclosureLiteral": "#ad",
+          "requireStillLive": 1
+        }
+      }
+    },
+    {
+      "id": "kol_mid_c_post",
+      "vendorId": "kol_mid_c",
+      "description": "One sponsored post from mid-tier KOL roster slot C, with the paid-promotion disclosure literal in the post body.",
+      "unitCostUsd": 5000,
+      "category": "kol",
+      "pricing": "third_party_pass_through",
+      "availableAtTiers": [
+        "T2",
+        "T3"
+      ],
+      "enabled": false,
+      "disabledReason": "Roster slot unfilled; no KYB record, no OFAC screen, no countersigned quote. Top of the observed 500-5000 USD mid-tier band.",
+      "maxQuantity": 1,
+      "minViableQuantity": 1,
+      "observedDeliveries": 0,
+      "priceProvenance": {
+        "kind": "vendor_countersigned_quote",
+        "sourceUri": "operator-archive://quotes/kol_mid_c/post",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 2592000
+      },
+      "predicate": {
+        "kind": "kol_post",
+        "verifyAtOffsetsSeconds": [
+          3600,
+          86400,
+          604800
+        ],
+        "params": {
+          "requireHandleMatch": 1,
+          "requireDisclosureLiteral": "#ad",
+          "requireStillLive": 1
+        }
+      }
+    },
+    {
+      "id": "operator_moderation_hour",
+      "vendorId": "operator",
+      "description": "One staffed hour of human moderation in the token's chat: link removal, impersonator takedown escalation, and answering what the desk refused.",
+      "unitCostUsd": 45,
+      "category": "moderation",
+      "pricing": "operator_service",
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "enabled": true,
+      "maxQuantity": 20,
+      "minViableQuantity": 8,
+      "observedDeliveries": 0,
+      "publishedRateRef": "operator-published-rates@v1",
+      "priceProvenance": {
+        "kind": "operator_published_rate",
+        "sourceUri": "https://SET_ME_BEFORE_LAUNCH/rates/operator-published-rates-v1",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 7776000,
+        "note": "Minimum viable purchase is a shift, not an hour: an hour of moderation scattered across a day covers nothing."
+      },
+      "predicate": {
+        "kind": "manual_attestation",
+        "verifyAtOffsetsSeconds": [
+          86400
+        ],
+        "params": {
+          "evidenceKind": "shift_log_hash",
+          "coverageSecondsPerUnit": 3600
+        }
+      }
+    },
+    {
+      "id": "operator_creative_static_set",
+      "vendorId": "operator",
+      "description": "One set of five static creative assets (banner, avatar, two post images, one chart overlay), delivered as a content-addressed bundle.",
+      "unitCostUsd": 180,
+      "category": "creative",
+      "pricing": "operator_service",
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "enabled": true,
+      "maxQuantity": 6,
+      "minViableQuantity": 1,
+      "observedDeliveries": 0,
+      "publishedRateRef": "operator-published-rates@v1",
+      "priceProvenance": {
+        "kind": "operator_published_rate",
+        "sourceUri": "https://SET_ME_BEFORE_LAUNCH/rates/operator-published-rates-v1",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 7776000
+      },
+      "predicate": {
+        "kind": "manual_attestation",
+        "verifyAtOffsetsSeconds": [
+          86400
+        ],
+        "params": {
+          "evidenceKind": "asset_bundle_hash",
+          "assetCount": 5
+        }
+      }
+    },
+    {
+      "id": "operator_creative_video_short",
+      "vendorId": "operator",
+      "description": "One short-form video, up to 30 seconds, delivered as a content-addressed file.",
+      "unitCostUsd": 420,
+      "category": "creative",
+      "pricing": "operator_service",
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "enabled": true,
+      "maxQuantity": 4,
+      "minViableQuantity": 1,
+      "observedDeliveries": 0,
+      "publishedRateRef": "operator-published-rates@v1",
+      "priceProvenance": {
+        "kind": "operator_published_rate",
+        "sourceUri": "https://SET_ME_BEFORE_LAUNCH/rates/operator-published-rates-v1",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 7776000
+      },
+      "predicate": {
+        "kind": "manual_attestation",
+        "verifyAtOffsetsSeconds": [
+          86400
+        ],
+        "params": {
+          "evidenceKind": "asset_bundle_hash",
+          "assetCount": 1
+        }
+      }
+    },
+    {
+      "id": "operator_build_landing_page",
+      "vendorId": "operator",
+      "description": "One published landing page for the token, including the receipts feed and the standing disclosure block.",
+      "unitCostUsd": 600,
+      "category": "build",
+      "pricing": "operator_service",
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "enabled": true,
+      "maxQuantity": 2,
+      "minViableQuantity": 1,
+      "observedDeliveries": 0,
+      "publishedRateRef": "operator-published-rates@v1",
+      "priceProvenance": {
+        "kind": "operator_published_rate",
+        "sourceUri": "https://SET_ME_BEFORE_LAUNCH/rates/operator-published-rates-v1",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 7776000
+      },
+      "predicate": {
+        "kind": "manual_attestation",
+        "verifyAtOffsetsSeconds": [
+          86400,
+          604800
+        ],
+        "params": {
+          "evidenceKind": "deployed_url_content_hash"
+        }
+      }
+    },
+    {
+      "id": "operator_build_integration_hour",
+      "vendorId": "operator",
+      "description": "One engineering hour of integration work: chat bot wiring, webhook plumbing, feed configuration.",
+      "unitCostUsd": 95,
+      "category": "build",
+      "pricing": "operator_service",
+      "availableAtTiers": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "enabled": true,
+      "maxQuantity": 20,
+      "minViableQuantity": 4,
+      "observedDeliveries": 0,
+      "publishedRateRef": "operator-published-rates@v1",
+      "priceProvenance": {
+        "kind": "operator_published_rate",
+        "sourceUri": "https://SET_ME_BEFORE_LAUNCH/rates/operator-published-rates-v1",
+        "observedAtUnix": 1788652800,
+        "observedOnDate": "2026-09-06",
+        "maxAgeSeconds": 7776000
+      },
+      "predicate": {
+        "kind": "manual_attestation",
+        "verifyAtOffsetsSeconds": [
+          86400
+        ],
+        "params": {
+          "evidenceKind": "commit_range_hash"
+        }
+      }
+    }
+  ]
+}

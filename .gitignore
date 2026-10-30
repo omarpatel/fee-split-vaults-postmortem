@@ -1,0 +1,53 @@
+node_modules/
+dist/
+*.tsbuildinfo
+
+# config/ compiles in place so that the relative specifier used across packages
+# ('../../../config/protocol.js') resolves identically from src/ and from dist/.
+config/*.js
+config/*.d.ts
+config/*.d.ts.map
+config/*.js.map
+
+contracts/out/
+contracts/cache/
+
+# Secrets. .env.example is the checked-in template and holds no real values.
+.env
+.env.*
+!.env.example
+
+# Measurement tool cache (tools/, VENUE_CACHE_DIR).
+.cache/
+
+# Scan checkpoints. A resumable 30-day scan parks tens of millions of decoded
+# logs here; it is derived data and it is large.
+.checkpoints/
+.checkpoints-*/
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+
+# Measurement artifacts, ignored on purpose: they are point-in-time readings of
+# a live chain that go stale within hours, and a stale artifact quoted as
+# current is the exact failure that directory exists to prevent. They are also
+# large - one 7-day merged escrow scan is a 218 MB document.
+#
+# Only the JSON readings are ignored. MEASUREMENT.md and the analysis scripts
+# in tools/artifacts/ are checked in: they are the write-up and the method,
+# not the data.
+tools/artifacts/*.json
+
+# Rendered creative (banner/avatar/card PNGs) written by `node tools/creative.ts`.
+# Derived from chain-read symbol/name and an approved narrative; regenerable.
+tools/artifacts/creative/
+
+# Local scratch: live-probe temp files, backups, Foundry fuzz cache, logs,
+# editor/agent config.
+.livetmp/
+*.bak
+/cache/
+*.log
+logs/
+.claude/

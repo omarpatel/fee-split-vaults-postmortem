@@ -1,0 +1,183 @@
+{
+  "_comment": "Event signatures established the way the escrow's two credit events were: a topic0 census of what each contract ACTUALLY emitted, cross-checked against Sourcify-verified source. Recorded 2026-09-07 against chain 4663. This fixture exists so a future edit cannot quietly reintroduce an inferred signature - the specs recompute keccak from the strings below and compare to topic0s that were OBSERVED on chain.",
+  "chainId": 4663,
+  "recordedAtUnix": 1788812355,
+  "sourcify": {
+    "endpoint": "https://sourcify.dev/server/v2/contract/4663/{address}",
+    "hookVerifiedAt": "2026-08-05T10:00:13Z",
+    "match": "match"
+  },
+  "contracts": {
+    "hook": "0xe5e702641ea86f4ae6cc3cdaed2b886f976be044",
+    "factory": "0x7ed598bcef8bd9edd8c97a195c6d13f40801ec7e",
+    "escrow": "0xd3afeb2a57f70ef218aa82451c51b2fb0416ac9e"
+  },
+  "census": [
+    {
+      "contract": "hook",
+      "windowBlocks": 2000,
+      "fromBlock": "57112482",
+      "toBlock": "57114481",
+      "totalLogs": 5255,
+      "observed": [
+        {
+          "topic0": "0xc532c43b3423e14ef72748f1c8291238829ca0af8ba9b67975ad1483485a4b4d",
+          "signature": "HookFeeCollected(bytes32 indexed poolId, address currency, uint256 feeAmount, uint256 taxAmount)",
+          "count": 5179,
+          "topicCount": 2,
+          "dataWords": 3
+        },
+        {
+          "topic0": "0x2f3c43579b9064b6f28edcf41608f3815792d274a56afe024359703cb4ea9b30",
+          "signature": "PoolFeesSwept(bytes32 indexed poolId, uint256 protocolAmount, uint256 buybackAmount, uint256 creatorAmount, uint256 tokensLocked)",
+          "count": 73,
+          "topicCount": 2,
+          "dataWords": 4
+        },
+        {
+          "topic0": "0x01bf263a1db1652580721573296e1a1fa70b3d4c87f61d02a69c4e1109d2d573",
+          "signature": "PoolRegistered(bytes32 indexed poolId, address memecoin, address quoteToken, address creator)",
+          "count": 3,
+          "topicCount": 2,
+          "dataWords": 3
+        }
+      ]
+    },
+    {
+      "contract": "factory",
+      "windowBlocks": 20000,
+      "fromBlock": "57094750",
+      "toBlock": "57114749",
+      "totalLogs": 1253,
+      "observed": [
+        {
+          "topic0": "0x8d4aad4953d0ca700d468f3753aa14432d1b35b43ec6409f051fb6aa43a89607",
+          "signature": "TokenLaunched(address indexed token, address indexed curve, address indexed deployer, address pairToken, uint256 launchConfigId, uint256 graduationThreshold)",
+          "count": 956,
+          "topicCount": 4,
+          "dataWords": 3
+        },
+        {
+          "topic0": "0x308c390ed1ab5873392818e036cabdf408bc8ad042fbaead3108954ff75ba980",
+          "signature": "CreatorFeeRecipientUpdated(address indexed token, address indexed previousRecipient, address indexed newRecipient)",
+          "count": 228,
+          "topicCount": 4,
+          "dataWords": 0
+        },
+        {
+          "topic0": "0xcdb72f157fd3666758a6ce201387ffb52038c7562e4fff352828da1096c4b6b4",
+          "signature": "LaunchSwept(address indexed token, uint256 quoteOut, uint256 tokenOut)",
+          "count": 23,
+          "topicCount": 2,
+          "dataWords": 2
+        },
+        {
+          "topic0": "0xa0a18f5bf205becee8b268d7cf69addab8548ae8ef361791464cf0e0e17c1361",
+          "signature": "GraduationTokensPermanentlyLocked(address indexed token, uint256 amount)",
+          "count": 23,
+          "topicCount": 2,
+          "dataWords": 1
+        },
+        {
+          "topic0": "0x0a44ef75df69c534f43cd6c1aa3ef8983065fe5fe79ef9e79f6494e6f258c259",
+          "signature": "PoolGraduated(address indexed token, uint256 positionId, uint256 tokenAmount, uint256 pairTokenAmount)",
+          "count": 23,
+          "topicCount": 2,
+          "dataWords": 3
+        }
+      ]
+    },
+    {
+      "contract": "curve",
+      "_note": "One per-launch bonding curve, 0xffe1810e69f23c7def4238a960d25062f9877adc, plus a chain-wide topic scan over 1,000 blocks. Curves are NOT verified on Sourcify, so these two signatures were recovered by matching keccak against the observed topic0 under the observed shape (2 indexed addresses, 4 data words) - weaker evidence than source, and labelled as such.",
+      "windowBlocks": 1000,
+      "verifiedBy": "topic0 preimage search, not source",
+      "totalLogs": 2026,
+      "observed": [
+        {
+          "topic0": "0xec36bf571f136799e8dc0b0b8bea4b04d8bd3d43de838aab0d5fc21d4cbfc455",
+          "signature": "CurveBuy(address indexed a, address indexed b, uint256 c, uint256 d, uint256 e, uint256 f)",
+          "count": 1175,
+          "topicCount": 3,
+          "dataWords": 4,
+          "distinctEmitters": 79
+        },
+        {
+          "topic0": "0x8113d738abdcb6b38357e9d53a54a7157861a09031b453651f0fe7fe151f59df",
+          "signature": "CurveSell(address indexed a, address indexed b, uint256 c, uint256 d, uint256 e, uint256 f)",
+          "count": 851,
+          "topicCount": 3,
+          "dataWords": 4,
+          "distinctEmitters": 122
+        }
+      ]
+    },
+    {
+      "contract": "escrow",
+      "windowBlocks": 1000,
+      "fromBlock": "57115664",
+      "toBlock": "57116663",
+      "totalLogs": 329,
+      "observed": [
+        {
+          "topic0": "0x4e45da441832cf53bdaa69235704fc0575e68210f459ee1562911024b12967d5",
+          "signature": "Credited(address indexed recipient, address indexed depositor, uint256 amount)",
+          "count": 150,
+          "topicCount": 3,
+          "dataWords": 1
+        },
+        {
+          "topic0": "0x5d104c62f50449fadfe6f4013c8f36588d32737f94b5ac9b83ddad33b3e1ffdf",
+          "signature": "CreditedToken(address indexed recipient, address indexed token, address indexed depositor, uint256 amount)",
+          "count": 146,
+          "topicCount": 4,
+          "dataWords": 1
+        }
+      ]
+    }
+  ],
+  "refuted": [
+    {
+      "signature": "TokenLaunched(address indexed token, bytes32 indexed poolId, address indexed creator)",
+      "topic0": "0x231c0f2a319ca4f9740af9f0106b371c4497f3eb4cb298d26a2c2a2cad7d1b8c",
+      "shippedAs": "tools/pool-fees-index.ts DEFAULT_TOKEN_LAUNCHED_EVENT",
+      "why": "Absent from a 20,000-block census of the factory, which emitted 1,253 logs across 5 other topic0s. The factory's real TokenLaunched has a different arity and carries NO poolId, so no variant of this event could ever have served the poolId -> token join."
+    },
+    {
+      "signature": "CurveBuy(address indexed buyer, uint256 amountIn, uint256 amountOut, uint256 fee)",
+      "topic0": "0xdae0202fef5cd49a0f3807dd9b0f0e6b8caa288ee5409831dcddb020ee601fa4",
+      "shippedAs": "packages/indexer/src/abi.ts CURVE_BUY",
+      "why": "CORRECTS AN EARLIER CONCLUSION. This SIGNATURE does not exist, and searching for its topic0 is what produced the finding that 'CurveBuy does not exist on this chain'. The EVENT does exist: CurveBuy(address indexed, address indexed, uint256, uint256, uint256, uint256), topic0 0xec36bf57…, 1,175 logs across 79 curve contracts in 1,000 blocks. A topic0 search can only ever refute the string you gave it, never the event, and this is the case where those two were confused."
+    },
+    {
+      "signature": "CurveSell(address indexed seller, uint256 amountIn, uint256 amountOut, uint256 fee)",
+      "topic0": "0x75f5383c5400ede5dad9434eb60f0eede5263d225b4cd51104be9591edca6742",
+      "shippedAs": "packages/indexer/src/abi.ts CURVE_SELL",
+      "why": "Same as CurveBuy: wrong arity. The real one is topic0 0x8113d738…, observed 851 times across 122 curves."
+    },
+    {
+      "signature": "PoolFeesSwept(bytes32 indexed poolId, address indexed quoteAsset, uint256 creatorAmount, uint256 protocolAmount)",
+      "topic0": "0x43e30d4c1aa350d3584b8acb54b74a3481f3011635c8277c88c10b9f4e3fe591",
+      "shippedAs": "packages/indexer/src/abi.ts POOL_FEES_SWEPT",
+      "why": "The indexer's copy differs from the tools' copy: it has an indexed quoteAsset and only two amounts. The verified event has no quoteAsset and four amounts. The two copies of the same event in this repo did not agree with each other, and neither side noticed."
+    },
+    {
+      "signature": "TokenLaunched(address indexed token, address indexed creator, address curve, address quoteAsset, bytes32 poolId)",
+      "topic0": "0x5d12bd74082a4a29850859832ddbac2a7a7f1d82937bd80751ec982b37b11ccb",
+      "shippedAs": "packages/indexer/src/abi.ts TOKEN_LAUNCHED",
+      "why": "A third variant of TokenLaunched, different again from the tools' one and from the verified one. It is the only one that names both curve and poolId, which is why the attribution design assumed a single event could bind both; on chain those are two separate bindings on two separate contracts."
+    },
+    {
+      "signature": "CreatorFeeRecipientTransferred(address indexed token, address indexed previousRecipient, address indexed newRecipient)",
+      "topic0": "0xe35ffbe9bfa8289c63b72fbdaf39e33f254f4a451e45f693455987bf0f1ff961",
+      "shippedAs": "packages/indexer/src/abi.ts CREATOR_FEE_RECIPIENT_TRANSFERRED",
+      "why": "Right shape, wrong NAME. The factory emits CreatorFeeRecipientUpdated with exactly these parameters, topic0 0x308c390e…, observed 228 times in 20,000 blocks. This is the event that tells an operator its vault stopped being a coin's fee recipient, so a listener on the wrong name is silent at exactly the moment it matters."
+    },
+    {
+      "signature": "CreatorFeeRecipientChangeProposed(address indexed token, address indexed newRecipient, uint256 etaUnix)",
+      "topic0": "0x19ea4efa7db275f6dce50f6b1942af7efe8a77478ae0dbfa2cbb5b1153703a8d",
+      "shippedAs": "packages/indexer/src/abi.ts CREATOR_FEE_RECIPIENT_CHANGE_PROPOSED",
+      "why": "The verified event has five parameters (token, currentRecipient, proposedRecipient, effectiveAt, expiresAt), topic0 0x7f119e44…. The comment above it in abi.ts says three days is the entire response window, so this is alerted at PROPOSAL time - and it would not have fired."
+    }
+  ]
+}

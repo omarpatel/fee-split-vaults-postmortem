@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "status": "unconfigured",
+  "revision": "seed-2026-09-06",
+  "publishedAtUnix": 1788652800,
+  "note": "WHAT IS NOT HERE: a list of real hosts named as malicious from memory. That would be unverifiable, potentially defamatory, and stale within days, and a stale blocklist is worse than none because it looks like protection. What IS here is the half that does not rot - the structural signatures every drainer funnel shares - plus the ingest points for a maintained feed, and a `status` that stays `unconfigured` until one is loaded. The desk's default link policy is an ALLOWLIST (packages/desk/src/moderation/blocklist.ts), so an empty blocklist is not an open door; this file exists to catch the hosts a chat is going to insist on allowing. `operatorEntries` is written by the ingest script, never by hand, and every entry must cite the feed it came from: an accusation with no source is one the operator made up.",
+  "structural": {
+    "blockPunycodeHosts": true,
+    "blockRawIpHosts": true,
+    "blockShorteners": true,
+    "maxLookalikeEditDistance": 2,
+    "funnelPathTokens": [
+      "claim",
+      "airdrop",
+      "connect",
+      "connectwallet",
+      "walletconnect",
+      "validate",
+      "verify",
+      "verification",
+      "sync",
+      "migrate",
+      "migration",
+      "restore",
+      "recovery",
+      "seedphrase",
+      "unlock",
+      "rectify",
+      "refund",
+      "giveaway",
+      "presale",
+      "whitelist",
+      "mint",
+      "support",
+      "helpdesk"
+    ]
+  },
+  "shorteners": [
+    "bit.ly",
+    "tinyurl.com",
+    "t.co",
+    "is.gd",
+    "cutt.ly",
+    "rebrand.ly",
+    "shorturl.at",
+    "t.ly",
+    "rb.gy",
+    "ow.ly",
+    "buff.ly",
+    "s.id",
+    "v.gd",
+    "lnkd.in",
+    "shorte.st",
+    "tiny.cc"
+  ],
+  "feeds": [
+    {
+      "id": "metamask_eth_phishing_detect",
+      "uri": "https://raw.githubusercontent.com/MetaMask/eth-phishing-detect/main/src/config.json",
+      "format": "json_object",
+      "cadence": "daily 06:00 UTC",
+      "note": "Community-maintained phishing host list shipped with MetaMask. Read the `blacklist` array; ignore `fuzzylist` and `tolerance`, which are that project's own lookalike machinery and would double-count ours."
+    },
+    {
+      "id": "scamsniffer_blacklist",
+      "uri": "https://raw.githubusercontent.com/scamsniffer/scam-database/main/blacklist/domains.json",
+      "format": "json_array",
+      "cadence": "daily 06:00 UTC",
+      "note": "Drainer-focused list, higher churn and higher false-positive rate than the MetaMask one. Entries sourced here are still worth blocking - the cost of a false positive is a removed link, the cost of a false negative is a drained holder - but the asymmetry is worth stating."
+    },
+    {
+      "id": "operator_incident_log",
+      "uri": "operator-archive://incidents/drainer-hosts",
+      "format": "hostlist_text",
+      "cadence": "on incident, reviewed weekly",
+      "note": "Hosts seen in our own client chats. This is the highest-signal feed and the smallest; a host posted into three different client chats in an hour is a campaign."
+    }
+  ],
+  "operatorEntries": []
+}

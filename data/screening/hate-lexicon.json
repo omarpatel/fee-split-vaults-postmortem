@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "sha256",
+  "normalization": "nfkd-lower-strip-diacritics-alnum-space@v1",
+  "status": "unconfigured",
+  "revision": "seed-2026-09-06",
+  "publishedAtUnix": 1788652800,
+  "note": "TWO HALVES, DELIBERATELY DIFFERENT. `entries` holds sha256 digests of normalised slurs and never the strings themselves: a slur list checked into a repository in plaintext is an evasion guide with a table of contents, and the hash set answers the only question stage 1 asks of it - is this normalised token in the set. `plaintextPhrases` holds ideological phrases whose only reading is the hateful one; those need substring matching, which a hash cannot do, and publishing them teaches an attacker nothing. STATUS IS `unconfigured` AND THAT IS FAIL-CLOSED: with no operator slur list loaded, packages/screening raises `lexicon_unconfigured` and paid media is forbidden until it is. Missing list, no clearance. Load the operator list with the digests computed by hashTerm() from @fee-split-vaults/catalog and set status to `configured`. This file is ADDITIVE to DEFAULT_LEXICON in packages/screening/src/lexicon.ts, which already carries the built-in hate, tragedy, sexual, violence and minor-reference terms.",
+  "entries": [],
+  "plaintextPhrases": [
+    { "term": "day of the rope", "category": "hate" },
+    { "term": "great replacement", "category": "hate" },
+    { "term": "white genocide", "category": "hate" },
+    { "term": "jewish question", "category": "hate" },
+    { "term": "holocaust hoax", "category": "hate" },
+    { "term": "holohoax", "category": "hate" },
+    { "term": "aryan nation", "category": "hate" },
+    { "term": "race war now", "category": "hate" },
+    { "term": "gas chamber", "category": "hate" },
+    { "term": "remove kebab", "category": "hate" },
+    { "term": "kill the infidels", "category": "hate" },
+    { "term": "deport them all", "category": "hate" },
+    { "term": "subhuman race", "category": "hate" },
+    {
+      "term": "pure blood only",
+      "category": "hate",
+      "note": "Eugenic framing. Distinct from the vaccine-era usage, which is why it is a phrase and not a word."
+    }
+  ]
+}

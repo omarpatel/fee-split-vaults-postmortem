@@ -1,0 +1,87 @@
+{
+  "_comment": "Synthetic but ABI-exact CreditedToken logs, the ERC-20 side of the fee escrow. Block 0 = 2026-08-07T00:00:00Z at 1s/block, the same clock as escrow-credit-logs.json, so the two can be merged in one window. The DEPOSITOR in every log is the V2 Meme Hook - the address a positional decoder once reported as if it were a currency. Known answers: 0xaaaa..0001 is credited 1 TKA on day 0 and 2 TKA on day 1; 0xffff..0006 is credited 5 TKB on day 1 and 1 TKB on day 2. TKB has 6 decimals, so a run that assumes 18 gets a visibly wrong number.",
+  "escrow": "0xd3afeb2a57f70ef218aa82451c51b2fb0416ac9e",
+  "eventSignature": "CreditedToken(address,address,address,uint256)",
+  "topic0": "0x5d104c62f50449fadfe6f4013c8f36588d32737f94b5ac9b83ddad33b3e1ffdf",
+  "depositor": "0xe5e702641ea86f4ae6cc3cdaed2b886f976be044",
+  "genesisUnix": 1786060800,
+  "blockTimeSeconds": 1,
+  "assets": [
+    {
+      "address": "0x1111111111111111111111111111111111110aaa",
+      "symbol": "TKA",
+      "decimals": 18
+    },
+    {
+      "address": "0x2222222222222222222222222222222222220bbb",
+      "symbol": "TKB",
+      "decimals": 6
+    }
+  ],
+  "priceUsdBySymbol": {
+    "TKA": 10,
+    "TKB": 2
+  },
+  "logs": [
+    {
+      "address": "0xd3afeb2a57f70ef218aa82451c51b2fb0416ac9e",
+      "topics": [
+        "0x5d104c62f50449fadfe6f4013c8f36588d32737f94b5ac9b83ddad33b3e1ffdf",
+        "0x000000000000000000000000aaaa000000000000000000000000000000000001",
+        "0x0000000000000000000000001111111111111111111111111111111111110aaa",
+        "0x000000000000000000000000e5e702641ea86f4ae6cc3cdaed2b886f976be044"
+      ],
+      "data": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000",
+      "blockNumber": "3600",
+      "blockHash": "0x0000000000000000000000000000000000000000000000000000000000000e10",
+      "transactionHash": "0x0000000000000000000000000000000000000000000000000000000000006270",
+      "logIndex": 0,
+      "removed": false
+    },
+    {
+      "address": "0xd3afeb2a57f70ef218aa82451c51b2fb0416ac9e",
+      "topics": [
+        "0x5d104c62f50449fadfe6f4013c8f36588d32737f94b5ac9b83ddad33b3e1ffdf",
+        "0x000000000000000000000000aaaa000000000000000000000000000000000001",
+        "0x0000000000000000000000001111111111111111111111111111111111110aaa",
+        "0x000000000000000000000000e5e702641ea86f4ae6cc3cdaed2b886f976be044"
+      ],
+      "data": "0x0000000000000000000000000000000000000000000000001bc16d674ec80000",
+      "blockNumber": "90000",
+      "blockHash": "0x0000000000000000000000000000000000000000000000000000000000015f90",
+      "transactionHash": "0x0000000000000000000000000000000000000000000000000000000000099cf1",
+      "logIndex": 1,
+      "removed": false
+    },
+    {
+      "address": "0xd3afeb2a57f70ef218aa82451c51b2fb0416ac9e",
+      "topics": [
+        "0x5d104c62f50449fadfe6f4013c8f36588d32737f94b5ac9b83ddad33b3e1ffdf",
+        "0x000000000000000000000000ffff000000000000000000000000000000000006",
+        "0x0000000000000000000000002222222222222222222222222222222222220bbb",
+        "0x000000000000000000000000e5e702641ea86f4ae6cc3cdaed2b886f976be044"
+      ],
+      "data": "0x00000000000000000000000000000000000000000000000000000000004c4b40",
+      "blockNumber": "90001",
+      "blockHash": "0x0000000000000000000000000000000000000000000000000000000000015f91",
+      "transactionHash": "0x0000000000000000000000000000000000000000000000000000000000099cf9",
+      "logIndex": 2,
+      "removed": false
+    },
+    {
+      "address": "0xd3afeb2a57f70ef218aa82451c51b2fb0416ac9e",
+      "topics": [
+        "0x5d104c62f50449fadfe6f4013c8f36588d32737f94b5ac9b83ddad33b3e1ffdf",
+        "0x000000000000000000000000ffff000000000000000000000000000000000006",
+        "0x0000000000000000000000002222222222222222222222222222222222220bbb",
+        "0x000000000000000000000000e5e702641ea86f4ae6cc3cdaed2b886f976be044"
+      ],
+      "data": "0x00000000000000000000000000000000000000000000000000000000000f4240",
+      "blockNumber": "176400",
+      "blockHash": "0x000000000000000000000000000000000000000000000000000000000002b110",
+      "transactionHash": "0x000000000000000000000000000000000000000000000000000000000012d773",
+      "logIndex": 3,
+      "removed": false
+    }
+  ]
+}

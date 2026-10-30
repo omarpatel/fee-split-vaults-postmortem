@@ -1,0 +1,284 @@
+# Local development stack, and the shape of the go-live stack.
+#
+#   docker compose up -d db
+#   docker compose run --rm migrate
+#   docker compose --env-file .env.local run --rm preflight     # tools/preflight.ts
+#   docker compose --env-file .env.local up api orchestrator
+#
+# THE CREDENTIALS BELOW ARE FOR A THROWAWAY CONTAINER ON A LOOPBACK PORT and
+# nothing else. Nothing in this file should ever be reachable from a network, and
+# no production value belongs in it - the secret scan allowlists this file
+# precisely because it is understood to be local-only, so putting a real
+# credential here would hide it from the one gate that would have caught it.
+#
+# The orchestrator runs the REAL composition root (OPS_PORTS_MODULE points at
+# @fee-split-vaults/fleet/ports). Which of its dependencies are live is decided
+# entirely by the FLEET_* / VENUE_* / publisher variables below, and those are
+# PASSED THROUGH from the environment you run compose in - `--env-file
+# .env.local` - never written here. A variable left unset reaches the container
+# unset, so the fleet falls back to the in-memory fake for that dependency and
+# says so in its substitution banner; a variable set to a value that cannot be
+# honoured is a startup refusal, never a silent fake. .env.example documents
+# every one of them and the refusal each malformed value produces.
+#
+# OPS_ALLOW_FAKE_PORTS is deliberately NOT set here any more. It bypasses the
+# ports module entirely and runs the ops fakes, which report healthy while doing
+# nothing; if you want that, `npm --prefix ops run scheduler:local` is the
+# harness for it and it does not need a database.
+
+name: fee-split-vaults
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: venue
+      POSTGRES_PASSWORD: local-development-placeholder
+      POSTGRES_DB: fee_split_vaults
+      # Deterministic collation, so an ORDER BY in a test means the same thing
+      # here as it does in CI.
+      LC_COLLATE: C
+      LC_CTYPE: C
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U venue -d fee_split_vaults']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # Forward-only migration runner. A one-shot job, not a service: it must run to
+  # completion before anything else starts, and it must be able to fail loudly.
+  migrate:
+    build:
+      context: .
+      dockerfile: ops/docker/orchestrator.Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://venue:local-development-placeholder@db:5432/fee_split_vaults
+    command: ['node', 'ops/migrations/cli.js', 'up']
+    restart: 'no'
+
+  orchestrator:
+    build:
+      context: .
+      dockerfile: ops/docker/orchestrator.Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      - DATABASE_URL=postgres://venue:local-development-placeholder@db:5432/fee_split_vaults
+      - OPS_WORKER_ID=local-orchestrator-1
+      - OPS_TICK_SECONDS=10
+      - OPS_LOG_LEVEL=debug
+      - OPS_PORTS_MODULE=@fee-split-vaults/fleet/ports
+      # --- pass-through: values come from `--env-file .env.local`, never here ---
+      # Model
+      - ANTHROPIC_API_KEY
+      - FLEET_MODEL_PROBE
+      - FLEET_REQUIRE_LIVE_MODEL
+      - FLEET_REFUSE_FAKES
+      - FLEET_USER_ID_SALT
+      # Chain
+      - FLEET_CHAIN
+      - VENUE_RPC_URL
+      - VENUE_RPC_URL_SECONDARY
+      - VENUE_RPC_TIMEOUT_MS
+      - VENUE_HTTP_RPS
+      - VENUE_LOG_CHUNK_BLOCKS
+      - FLEET_MAX_RANGES_PER_SYNC
+      - FLEET_MAX_COVERAGE_LAG_SECONDS
+      - FLEET_HOLDERS
+      # Coins
+      - FLEET_COINS_SOURCE
+      - FLEET_COINS_FILE
+      # Settlement and the policy keyring
+      - FLEET_SETTLEMENT
+      - OPERATOR_SIGNER_KEY
+      - OPERATOR_TREASURY_ADDRESS
+      - POLICY_SIGNING_KEY
+      - POLICY_SIGNING_KEY_ID
+      # Prices and delivery evidence
+      - FLEET_PRICES
+      - COINGECKO_IDS
+      - COINGECKO_API_KEY
+      - FLEET_EVIDENCE
+      - DEXSCREENER_CHAIN_SLUG
+      # Catalog
+      - FLEET_CATALOG
+      # Messages, publishing, the desk and X mentions
+      - TELEGRAM_BOT_TOKEN
+      - FLEET_PUBLISHER
+      - X_CLIENT_ID
+      - X_CLIENT_SECRET
+      - X_REDIRECT_URI
+      - PUBLISHER_TOKEN_KEY
+      - PUBLISHER_RECEIPTS_BASE_URL
+      - PUBLISHER_ALLOWED_LINK_HOSTS
+      - PUBLISHER_APPROVAL_URL
+      - PUBLISHER_APPROVAL_TOKEN
+      - VENUE_EXPLORER_BASE_URL
+      - X_MENTIONS_POLL_SECONDS
+      # Re-screening sources (ops.screening reads the same files as the API)
+      - SCREENING_LEXICON_FILE
+      - OFAC_SDN_URL
+      - OFAC_SDN_FILE
+      # Alerts and the weekly report
+      - OPS_ALERT_WEBHOOK_URL
+      - OPS_ALERT_WEBHOOK_TOKEN
+      - OPS_REPORT_TELEGRAM_BOT_TOKEN
+      # Creative
+      - CREATIVE_FONT_FILES
+    # Operator-supplied files the environment names by path: the slur lexicon
+    # and the OFAC list are never in the image or the repository, and pinned
+    # fonts may not be. Set VENUE_OPERATOR_FILES in .env.local to an ABSOLUTE
+    # host directory (outside the checkout, so nothing can commit it) and
+    # point SCREENING_LEXICON_FILE, OFAC_SDN_FILE and CREATIVE_FONT_FILES at
+    # /operator/... . Unset, an empty named volume is mounted and every check
+    # that needs one of those files says so.
+    volumes:
+      - ${VENUE_OPERATOR_FILES:-operator-files}:/operator:ro
+    restart: unless-stopped
+
+  # The go-live gate. One shot, read-only against the world, exit 0 only when
+  # every check passes. Same image as the orchestrator so what it bootstraps
+  # in check 12 is byte-for-byte the composition root the orchestrator runs.
+  preflight:
+    build:
+      context: .
+      dockerfile: ops/docker/orchestrator.Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      - DATABASE_URL=postgres://venue:local-development-placeholder@db:5432/fee_split_vaults
+      - OPS_PORTS_MODULE=@fee-split-vaults/fleet/ports
+      - NODE_ENV
+      - ANTHROPIC_API_KEY
+      - FLEET_MODEL_PROBE
+      - FLEET_REQUIRE_LIVE_MODEL
+      - FLEET_REFUSE_FAKES
+      - FLEET_USER_ID_SALT
+      - FLEET_CHAIN
+      - VENUE_RPC_URL
+      - VENUE_RPC_URL_SECONDARY
+      - VENUE_RPC_URLS
+      - VENUE_RPC_TIMEOUT_MS
+      - VENUE_HTTP_RPS
+      - VENUE_LOG_CHUNK_BLOCKS
+      - FLEET_MAX_RANGES_PER_SYNC
+      - FLEET_MAX_COVERAGE_LAG_SECONDS
+      - FLEET_HOLDERS
+      - FLEET_COINS_SOURCE
+      - FLEET_COINS_FILE
+      - FLEET_SETTLEMENT
+      - OPERATOR_SIGNER_KEY
+      - OPERATOR_TREASURY_ADDRESS
+      - POLICY_SIGNING_KEY
+      - POLICY_SIGNING_KEY_ID
+      - FLEET_PRICES
+      - COINGECKO_IDS
+      - COINGECKO_API_KEY
+      - FLEET_EVIDENCE
+      - DEXSCREENER_CHAIN_SLUG
+      - FLEET_CATALOG
+      - TELEGRAM_BOT_TOKEN
+      - FLEET_PUBLISHER
+      - X_CLIENT_ID
+      - X_CLIENT_SECRET
+      - X_REDIRECT_URI
+      - PUBLISHER_TOKEN_KEY
+      - PUBLISHER_RECEIPTS_BASE_URL
+      - PUBLISHER_ALLOWED_LINK_HOSTS
+      - PUBLISHER_APPROVAL_URL
+      - PUBLISHER_APPROVAL_TOKEN
+      - VENUE_EXPLORER_BASE_URL
+      - X_MENTIONS_POLL_SECONDS
+      - SCREENING_LEXICON_FILE
+      - OFAC_SDN_URL
+      - OFAC_SDN_FILE
+      - OPS_ALERT_WEBHOOK_URL
+      - OPS_ALERT_WEBHOOK_TOKEN
+      - OPS_REPORT_TELEGRAM_BOT_TOKEN
+      - CREATIVE_FONT_FILES
+      # apps/api's own variables, checked in group 1 (env.api)
+      - VENUE_CHAIN_ID
+      - VENUE_VAULT_FACTORY
+      - VENUE_VAULT_DEPLOYER
+      - VENUE_VAULT_INIT_CODE_HASH
+      - VENUE_OPERATOR_NAME
+      - VENUE_RECEIPTS_BASE_URL
+      - VENUE_OPERATOR_API_TOKEN
+      - VENUE_DEV_ONLY_CONFIG
+    volumes:
+      - ${VENUE_OPERATOR_FILES:-operator-files}:/operator:ro
+    command: ['node', 'tools/preflight.ts']
+    restart: 'no'
+
+  api:
+    build:
+      context: .
+      dockerfile: ops/docker/api.Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      - DATABASE_URL=postgres://venue:local-development-placeholder@db:5432/fee_split_vaults
+      - PORT=8080
+      # development here; the go-live host sets NODE_ENV=production in
+      # .env.local, which is what turns on the dev-only refusals.
+      - NODE_ENV=${NODE_ENV:-development}
+      # --- pass-through from `--env-file .env.local`; apps/api/src/config.ts and live.ts read these ---
+      - VENUE_CHAIN_ID
+      - VENUE_RPC_URLS
+      - VENUE_RPC_URL
+      - VENUE_RPC_URL_SECONDARY
+      - VENUE_HTTP_RPS
+      - VENUE_VAULT_FACTORY
+      - VENUE_VAULT_DEPLOYER
+      - VENUE_VAULT_INIT_CODE_HASH
+      - VENUE_OPERATOR_NAME
+      - VENUE_RECEIPTS_BASE_URL
+      - VENUE_OPERATOR_API_TOKEN
+      - VENUE_SCREENING_MAX_AGE_SECONDS
+      - VENUE_ANTI_SNIPE_HOLD_SECONDS
+      - VENUE_DEV_ONLY_CONFIG
+      # The signer that deploys, binds and activates vaults. From a secrets
+      # manager at runtime; this container and the orchestrator share one key.
+      - OPERATOR_SIGNER_KEY
+      # Narrative derivation and the screening adjudicator
+      - ANTHROPIC_API_KEY
+      # The weekly report's USD figures
+      - FLEET_PRICES
+      - COINGECKO_IDS
+      - COINGECKO_API_KEY
+      # X: account linking, the sealing key, and reading a tweet named as a narrative source
+      - X_CLIENT_ID
+      - X_CLIENT_SECRET
+      - X_REDIRECT_URI
+      - PUBLISHER_TOKEN_KEY
+      - X_READ_BEARER_TOKEN
+      # Screening sources and creative fonts, by path under the mount below
+      - SCREENING_LEXICON_FILE
+      - OFAC_SDN_URL
+      - OFAC_SDN_FILE
+      - CREATIVE_FONT_FILES
+    volumes:
+      - ${VENUE_OPERATOR_FILES:-operator-files}:/operator:ro
+    ports:
+      - '127.0.0.1:8080:8080'
+    restart: unless-stopped
+
+volumes:
+  db-data:
+  operator-files:

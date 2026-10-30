@@ -1,0 +1,11 @@
+# ops/ compiles in place so that '../../config/protocol.js' resolves to the same
+# file from the TypeScript source and from the emitted JavaScript. See the
+# comment in ops/tsconfig.json. These are the build outputs of that decision.
+#
+# Hand-written files under ops/ are all .ts, .sql, .md, .json or Dockerfiles, so
+# ignoring every .js here cannot hide source.
+*.js
+*.js.map
+*.d.ts
+*.d.ts.map
+.tsbuildinfo

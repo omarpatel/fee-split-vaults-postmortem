@@ -1,0 +1,133 @@
+/*
+ * Design tokens.
+ *
+ * Light is defined on bare :root so a page always has a complete palette.
+ * Dark is applied twice - once under prefers-color-scheme for the default
+ * "system" setting, once under [data-theme="dark"] for an explicit choice -
+ * and the media query is guarded so an explicit light choice wins over a dark
+ * OS. No colour is ever defined only inside a media query.
+ */
+
+:root {
+  color-scheme: light;
+
+  --ink: #14181d;
+  --ink-muted: #5b6672;
+  --ink-faint: #8794a1;
+  --ink-inverse: #ffffff;
+
+  --surface: #f6f7f9;
+  --surface-raised: #ffffff;
+  --surface-sunken: #eceef2;
+  --surface-code: #f1f3f6;
+
+  --line: #dde1e7;
+  --line-strong: #c2c9d2;
+
+  --accent: #1f5f9c;
+  --accent-soft: #e8f0f8;
+  --accent-ink: #16466f;
+
+  --good: #1d6f4a;
+  --good-soft: #e4f2ea;
+  --warn: #8a5a00;
+  --warn-soft: #fbf0da;
+  --bad: #a52a1f;
+  --bad-soft: #fbe8e6;
+  --related: #6b3fa0;
+  --related-soft: #efe8f8;
+
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+
+  --shadow-card: 0 1px 2px rgb(20 24 29 / 6%), 0 4px 16px rgb(20 24 29 / 4%);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", "Liberation Mono", Menlo,
+    Consolas, monospace;
+
+  --step-0: 0.9375rem;
+  --step--1: 0.8125rem;
+  --step--2: 0.72rem;
+  --step-1: 1.125rem;
+  --step-2: 1.4rem;
+  --step-3: 1.85rem;
+  --step-4: 2.4rem;
+
+  --gap-1: 0.375rem;
+  --gap-2: 0.75rem;
+  --gap-3: 1.125rem;
+  --gap-4: 1.75rem;
+  --gap-5: 2.75rem;
+  --gap-6: 4rem;
+
+  --page-max: 1120px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --ink: #e6eaef;
+    --ink-muted: #9aa6b3;
+    --ink-faint: #6f7c8a;
+    --ink-inverse: #0f1216;
+
+    --surface: #0f1216;
+    --surface-raised: #171c22;
+    --surface-sunken: #0a0d10;
+    --surface-code: #12171d;
+
+    --line: #262d36;
+    --line-strong: #38424e;
+
+    --accent: #6aa9e0;
+    --accent-soft: #16283a;
+    --accent-ink: #b7d6f2;
+
+    --good: #6cc79a;
+    --good-soft: #10261d;
+    --warn: #dfb15c;
+    --warn-soft: #2a2013;
+    --bad: #e58a7f;
+    --bad-soft: #2c1715;
+    --related: #b294dd;
+    --related-soft: #221a30;
+
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 40%), 0 6px 20px rgb(0 0 0 / 30%);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ink: #e6eaef;
+  --ink-muted: #9aa6b3;
+  --ink-faint: #6f7c8a;
+  --ink-inverse: #0f1216;
+
+  --surface: #0f1216;
+  --surface-raised: #171c22;
+  --surface-sunken: #0a0d10;
+  --surface-code: #12171d;
+
+  --line: #262d36;
+  --line-strong: #38424e;
+
+  --accent: #6aa9e0;
+  --accent-soft: #16283a;
+  --accent-ink: #b7d6f2;
+
+  --good: #6cc79a;
+  --good-soft: #10261d;
+  --warn: #dfb15c;
+  --warn-soft: #2a2013;
+  --bad: #e58a7f;
+  --bad-soft: #2c1715;
+  --related: #b294dd;
+  --related-soft: #221a30;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 40%), 0 6px 20px rgb(0 0 0 / 30%);
+}

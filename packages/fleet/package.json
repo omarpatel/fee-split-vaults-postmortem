@@ -1,0 +1,46 @@
+{
+  "name": "@fee-split-vaults/fleet",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The composition root: builds every coin's agent team from configuration and credentials, ticks it on the scheduler's clock, and records what it did.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./ports": {
+      "types": "./dist/ports.d.ts",
+      "default": "./dist/ports.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "typecheck": "tsc --build --force && tsc -p tsconfig.test.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fee-split-vaults/adapters": "*",
+    "@fee-split-vaults/broker": "*",
+    "@fee-split-vaults/catalog": "*",
+    "@fee-split-vaults/core": "*",
+    "@fee-split-vaults/creative": "*",
+    "@fee-split-vaults/desk": "*",
+    "@fee-split-vaults/indexer": "*",
+    "@fee-split-vaults/ledger": "*",
+    "@fee-split-vaults/orchestrator": "*",
+    "@fee-split-vaults/publisher": "*",
+    "@fee-split-vaults/runtime": "*",
+    "@fee-split-vaults/screening": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

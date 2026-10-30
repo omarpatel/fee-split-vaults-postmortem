@@ -1,0 +1,23 @@
+# Results cache. Safe to delete; re-runs will re-fetch.
+.cache/
+
+# Vitest's own scratch space.
+node_modules/
+
+# Measurement outputs. These are point-in-time readings of a live chain and go
+# stale within hours, so they are deliberately NOT committed - a stale artifact
+# quoted as current is the exact failure this whole directory exists to prevent.
+#
+# The SCRIPTS in here are the opposite: they are the method, and a measurement
+# whose method is untracked is not reproducible by anyone but the person who
+# ran it. `artifacts/*` rather than `artifacts/` because git cannot re-include
+# a file whose parent DIRECTORY is excluded, so the directory must stay
+# listable for the negation below to take effect.
+artifacts/*
+!artifacts/*.mjs
+# The WRITE-UPS are not data either. MEASUREMENT.md and VERDICT.md are the
+# method and the decision; excluding them was a silent defect - the paragraph in
+# MEASUREMENT.md claiming it "stays checked in" was false under both this rule
+# and the `artifacts/` rule it replaced. A decision document nobody can clone is
+# not a decision document.
+!artifacts/*.md

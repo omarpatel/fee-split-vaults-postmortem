@@ -1,0 +1,16 @@
+{
+  "ref": "operator-published-rates@v1",
+  "version": 1,
+  "publishedAtUnix": 1788652800,
+  "publishedOnDate": "2026-09-06",
+  "publicUri": "https://SET_ME_BEFORE_LAUNCH/rates/operator-published-rates-v1",
+  "unitRateUsd": {
+    "operator_moderation_hour": 45,
+    "operator_creative_static_set": 180,
+    "operator_creative_video_short": 420,
+    "operator_build_landing_page": 600,
+    "operator_build_integration_hour": 95
+  },
+  "sealHash": "3de2b629cd31853c0419688a87729479a700236ea0b1382b59155251a8206289",
+  "note": "The operator's own labour, at one published rate for every client. THERE IS NO VAULT KEY ANYWHERE IN THIS DOCUMENT, and Catalog.priceCents takes no vault argument, so coin independence is structural rather than promised. The ref pins the version: raising a rate publishes v2 and every SKU has to be re-pointed at it, which is what stops a rate change from silently repricing work already agreed. publicUri must be set before launch, alongside DISCLOSURE.operatorName in config/protocol.ts."
+}

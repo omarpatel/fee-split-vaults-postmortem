@@ -1,0 +1,23 @@
+{
+  "name": "@fee-split-vaults/pilot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Section 9 experiment harness: within-coin time-randomized desk coverage, pre-registered analysis, and the mechanical Phase 1 decision rule.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc --build",
+    "typecheck": "tsc --build --force && tsc -p tsconfig.spec.json"
+  },
+  "dependencies": {
+    "@fee-split-vaults/core": "*"
+  }
+}
